@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { getQuestionsByVariant, totalVariants } from './data/questions';
 import { QuizState } from './types';
@@ -127,7 +126,7 @@ const App: React.FC = () => {
             <div className="inline-flex p-3 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-200">
               <Trophy className="text-white w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Amaliy Matematika</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Matematika</h1>
             <p className="text-slate-500">Amaliy matematika va matematik fizika (340 ta savol)</p>
           </header>
 
@@ -287,7 +286,7 @@ const App: React.FC = () => {
                       }`}>
                         {labels[displayIndex]}
                       </span>
-                      <span className="font-medium text-sm md:text-base font-mono">{option}</span>
+                      <span className="font-medium text-sm md:text-base font-mono whitespace-pre-wrap">{option}</span>
                     </div>
                     {icon}
                   </button>

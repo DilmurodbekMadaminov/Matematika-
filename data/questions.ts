@@ -47,13 +47,13 @@ const questionsList: Question[] = [
   {
     id: 8,
     text: "A va B matritsalar berilgan, A·B matritsani toping:\n\n    ⎛ 2  3  0 ⎞\nA = ⎜ 4  1  5 ⎟\n    ⎝         ⎠\n\n    ⎛  1  7 ⎞\nB = ⎜ -2  3 ⎟\n    ⎝  6  0 ⎠",
-    options: ["(-4 23; 32 31)", "(3 11; 5 4; 6 5)", "(8 5; 45 18)", "(8 5 3; 7 31 32)"],
+    options: ["⎛ -4  23 ⎞\n⎝ 32  31 ⎠", "⎛ 3  11 ⎞\n⎜ 5   4 ⎟\n⎝ 6   5 ⎠", "⎛ 8   5 ⎞\n⎝ 45  18 ⎠", "⎛ 8  5   3 ⎞\n⎝ 7  31  32 ⎠"],
     correctAnswer: 0
   },
   {
     id: 9,
     text: "Agar A matritsa berilgan bo'lsa, α·A ni toping (bunda α ∈ R):\n\n    ⎛ a₁₁  a₁₂ ⎞\nA = ⎜          ⎟\n    ⎝ a₂₁  a₂₂ ⎠",
-    options: ["(αa₁₁ αa₁₂; αa₂₁ αa₂₂)", "(αa₁₁ a₁₂; a₂₁ a₂₂)", "(a₁₁ αa₁₂; a₂₁ a₂₂)", "(a₁₁ a₁₂; a₂₁ αa₂₂)"],
+    options: ["⎛ αa₁₁  αa₁₂ ⎞\n⎝ αa₂₁  αa₂₂ ⎠", "⎛ αa₁₁   a₁₂ ⎞\n⎝  a₂₁   a₂₂ ⎠", "⎛ a₁₁  αa₁₂ ⎞\n⎝ a₂₁   a₂₂ ⎠", "⎛ a₁₁   a₁₂ ⎞\n⎝ a₂₁  αa₂₂ ⎠"],
     correctAnswer: 0
   },
   {
@@ -65,7 +65,7 @@ const questionsList: Question[] = [
   {
     id: 11,
     text: "A va B matritsalar berilgan bo'lsa, 2A + B ni toping:\n\n    ⎛ 1  0 ⎞      ⎛ 0  1 ⎞\nA = ⎜      ⎟  B = ⎜      ⎟\n    ⎝ 0  1 ⎠      ⎝ 1  1 ⎠",
-    options: ["(2 1; 1 3)", "(2 1; 1 2)", "(0 2; 1 3)", "(1 0; 2 3)"],
+    options: ["⎛ 2  1 ⎞\n⎝ 1  3 ⎠", "⎛ 2  1 ⎞\n⎝ 1  2 ⎠", "⎛ 0  2 ⎞\n⎝ 1  3 ⎠", "⎛ 1  0 ⎞\n⎝ 2  3 ⎠"],
     correctAnswer: 0
   },
   {
@@ -83,7 +83,7 @@ const questionsList: Question[] = [
   {
     id: 14,
     text: "Sistemaning yechimini toping:\n\n⎧ x = 1\n⎪\n⎨ x + 2y = 3\n⎪\n⎩ x + y - z = 0",
-    options: ["(1;1;2)", "(1;-1;2)", "(1;1;0)", "(1;1;1)"],
+    options: ["(1; 1; 2)", "(1; -1; 2)", "(1; 1; 0)", "(1; 1; 1)"],
     correctAnswer: 0
   },
   {
@@ -557,19 +557,19 @@ const questionsList: Question[] = [
   {
     id: 93,
     text: "3A - B ni hisoblang:\n\n    ⎛ 1  2  3 ⎞     ⎛ 1  2  0 ⎞\nA = ⎜ 3  1  2 ⎟ B = ⎜ 3  1  3 ⎟\n    ⎝ 2  1  4 ⎠     ⎝ 1  2  4 ⎠",
-    options: ["(2 4 9; 6 2 3; 5 1 8)", "(-2 2 3; 6 2 9; 7 1 8)", "(-2 8 9; 6 2 9; 5 1 8)", "(-2 8 9; 6 2 9; 5 1 8)"],
+    options: ["⎛ 2  4  9 ⎞\n⎜ 6  2  3 ⎟\n⎝ 5  1  8 ⎠", "⎛ -2  2  3 ⎞\n⎜ 6   2  9 ⎟\n⎝ 7   1  8 ⎠", "⎛ -2  8  9 ⎞\n⎜ 6   2  9 ⎟\n⎝ 5   1  8 ⎠", "⎛ -2  8  9 ⎞\n⎜ 6   2  9 ⎟\n⎝ 5   1  8 ⎠"],
     correctAnswer: 0
   },
   {
     id: 94,
     text: "2A + 5B ni toping:\n\n    ⎛ 3  5 ⎞     ⎛ 2   3 ⎞\nA = ⎜      ⎟ B = ⎜       ⎟\n    ⎝ 4  1 ⎠     ⎝ 1  -2 ⎠",
-    options: ["(16 25; 13 -8)", "(16 -3; 13 -1)", "(10 25; 1 -4)", "(1 -1; 1 0)"],
+    options: ["⎛ 16  25 ⎞\n⎝ 13  -8 ⎠", "⎛ 16  -3 ⎞\n⎝ 13  -1 ⎠", "⎛ 10  25 ⎞\n⎝ 1   -4 ⎠", "⎛ 1  -1 ⎞\n⎝ 1   0 ⎠"],
     correctAnswer: 0
   },
   {
     id: 95,
     text: "A² ni toping:\n\n    ⎛ 3  2 ⎞\nA = ⎜      ⎟\n    ⎝ 1  4 ⎠",
-    options: ["(11 14; 7 18)", "(39 86; 47 78)", "(41 78; 38 83)", "(-10 4; 7 12)"],
+    options: ["⎛ 11  14 ⎞\n⎝ 7   18 ⎠", "⎛ 39  86 ⎞\n⎝ 47  78 ⎠", "⎛ 41  78 ⎞\n⎝ 38  83 ⎠", "⎛ -10  4 ⎞\n⎝ 7   12 ⎠"],
     correctAnswer: 0
   },
   {
@@ -629,25 +629,25 @@ const questionsList: Question[] = [
   {
     id: 105,
     text: "Matritsalar berilgan, 3A-B matritsani toping:\n\n    ⎛ 2 -1  4 ⎞     ⎛ 1 -2  4 ⎞\nA = ⎜ 3  1 -2 ⎟ B = ⎜ 3  1  3 ⎟\n    ⎝ 1  2 -3 ⎠     ⎝ 1 -2  0 ⎠",
-    options: ["( 5 -1 -8 )\n( 6  2 -9 )\n( 2  8 -9 )", "( 5 -1 -8 )\n( 4  2 -3 )\n( 2  8 -9 )", "( 5 -1  8 )\n( 6  2  9 )\n( 2  8  9 )", "( 5 -1  8 )\n( 6  2 -9 )\n( 2  8 -9 )"],
+    options: ["⎛ 5  -1  -8 ⎞\n⎜ 6   2  -9 ⎟\n⎝ 2   8  -9 ⎠", "⎛ 5  -1  -8 ⎞\n⎜ 4   2  -3 ⎟\n⎝ 2   8  -9 ⎠", "⎛ 5  -1   8 ⎞\n⎜ 6   2   9 ⎟\n⎝ 2   8   9 ⎠", "⎛ 5  -1   8 ⎞\n⎜ 6   2  -9 ⎟\n⎝ 2   8  -9 ⎠"],
     correctAnswer: 0
   },
   {
     id: 106,
     text: "Matritsalar berilgan, 2A+5B matritsani toping:\n\n    ⎛ 3 5 ⎞     ⎛ 2  3 ⎞\nA = ⎜     ⎟ B = ⎜      ⎟\n    ⎝ 4 1 ⎠     ⎝ 1 -2 ⎠",
-    options: ["( 16  25 )\n( 13 -8 )", "( 16 -3 )\n( 13 -1 )", "( 10  25 )\n( 1  -4 )", "( 1  -1 )\n( 1   0 )"],
+    options: ["⎛ 16  25 ⎞\n⎝ 13  -8 ⎠", "⎛ 16  -3 ⎞\n⎝ 13  -1 ⎠", "⎛ 10  25 ⎞\n⎝ 1   -4 ⎠", "⎛ 1  -1 ⎞\n⎝ 1   0 ⎠"],
     correctAnswer: 0
   },
   {
     id: 107,
     text: "A² matritsalarni toping:\n\n    ⎛ 3 2 ⎞\nA = ⎜     ⎟\n    ⎝ 1 4 ⎠",
-    options: ["( 11 14 )\n( 7  18 )", "( 39 86 )\n( 47 78 )", "( 41 78 )\n( 38 83 )", "( -10 4 )\n(  7 12 )"],
+    options: ["⎛ 11  14 ⎞\n⎝ 7   18 ⎠", "⎛ 39  86 ⎞\n⎝ 47  78 ⎠", "⎛ 41  78 ⎞\n⎝ 38  83 ⎠", "⎛ -10  4 ⎞\n⎝  7  12 ⎠"],
     correctAnswer: 0
   },
   {
     id: 108,
     text: "A·B matritsalarni toping:\n\n    ⎛ 2 3 0 ⎞     ⎛ 1  7 ⎞\nA = ⎜       ⎟ B = ⎜ -2 3 ⎟\n    ⎝ 4 1 5 ⎠     ⎝ 6  0 ⎠",
-    options: ["( -4 23 )\n( 32 31 )", "( 3 11 )\n( 5  4 )\n( 6  5 )", "( 8  5 )\n( 45 18 )", "( 8  5  3 )\n( 7  31 32 )"],
+    options: ["⎛ -4  23 ⎞\n⎝ 32  31 ⎠", "⎛ 3  11 ⎞\n⎜ 5   4 ⎟\n⎝ 6   5 ⎠", "⎛ 8   5 ⎞\n⎝ 45  18 ⎠", "⎛ 8  5   3 ⎞\n⎝ 7  31  32 ⎠"],
     correctAnswer: 0
   },
   {
@@ -899,7 +899,7 @@ const questionsList: Question[] = [
   {
     id: 155,
     text: "y = arcsin(eˣ) funksiyaning hosilasi topilsin:",
-    options: ["eˣ / √(1 - e^(2x))", "eˣ / √(1 + e^(2x))", "1 / √(1 - e^(2x))", "-eˣ / √(1 - e^(2x))"],
+    options: ["eˣ / √(1 - e²ˣ)", "eˣ / √(1 + e²ˣ)", "1 / √(1 - e²ˣ)", "-eˣ / √(1 - e²ˣ)"],
     correctAnswer: 0
   },
   {
@@ -1505,7 +1505,7 @@ const questionsList: Question[] = [
   {
     id: 264,
     text: "Matrisani matrisaga ko‘paytiring:\n\n⎛ 4  5 ⎞   ⎛  1  2 ⎞\n⎜      ⎟ · ⎜       ⎟\n⎝ -1 11⎠   ⎝ -2  3 ⎠",
-    options: ["Matrisalarni ko‘paytirib bo‘lmaydi", "(-4 23)\n(1 2)", "(-1 11)\n(4 5)", "(3 2)\n(-3 3)"],
+    options: ["Matrisalarni ko‘paytirib bo‘lmaydi", "⎛ -6  23 ⎞\n⎝ -23 31 ⎠", "⎛ -1  11 ⎞\n⎝ 4   5 ⎠", "⎛ 3   2 ⎞\n⎝ -3  3 ⎠"],
     correctAnswer: 0
   },
   {
