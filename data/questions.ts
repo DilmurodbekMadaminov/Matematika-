@@ -29,7 +29,7 @@ const questionsList: Question[] = [
   {
     id: 5,
     text: "Determinantni hisoblang:\n\n│ a₁  a₁  b₁ │\n│ a₂  a₂  b₂ │\n│ a₃  a₃  b₃ │",
-    options: ["0", "-1", "1", "a₁ a₂ b₃"],
+    options: ["0", "-1", "1", "a₁, a₁, b₂"],
     correctAnswer: 0
   },
   {
@@ -71,7 +71,7 @@ const questionsList: Question[] = [
   {
     id: 12,
     text: "m ning qanday qiymatida sistema yechimga ega bo'lmaydi?\n\n⎧ 6x - 4y = 15\n⎨\n⎩ 2x + my = 3",
-    options: ["-4/3", "3/4", "3/4", "3"],
+    options: ["-4/3", "4/3", "3/4", "3"],
     correctAnswer: 0
   },
   {
@@ -94,14 +94,14 @@ const questionsList: Question[] = [
   },
   {
     id: 16,
-    text: "a = 2i - j va b = 3k vektorlar berilgan. a × b vektor ko'paytmani toping.",
+    text: "a = 2i - j va b = 3k vektorlar berilgan. a × b vektorli ko'paytmani toping.",
     options: ["-3i - 6j", "3i + 6j", "3i - 6j", "-3i + 6j"],
     correctAnswer: 0
   },
   {
     id: 17,
-    text: "a(x₁;y₁;z₁), b(x₂;y₂;z₂), c(x₃;y₃;z₃) vektorlarning komplanarlik sharti qanday?",
-    options: ["Det(x₁,y₁,z₁; x₂,y₂,z₂; x₃,y₃,z₃) = 0", "Det ≠ 0", "x₁x₂ + y₁y₂ + z₁z₂ = 0", "Koordinatalar yig'indisi 0"],
+    text: "a(x₁; y₁; z₁), b(x₂; y₂; z₂), c(x₃; y₃; z₃) vektorlarning komplanarlik sharti qanday?",
+    options: ["│ x₁  x₂  x₃ │\n│ y₁  y₂  y₃ │ = 0\n│ z₁  z₂  z₃ │", "Det ≠ 0", "x₁x₂ + y₁y₂ + z₁z₂ = 0", "Koordinatalar yig'indisi 0"],
     correctAnswer: 0
   },
   {
@@ -118,7 +118,7 @@ const questionsList: Question[] = [
   },
   {
     id: 20,
-    text: "(k × j) · i aralash ko'paytmasini hisoblang.",
+    text: "(k × j) · i aralash ko'paytmasini yozing.",
     options: ["-1", "0", "i", "1"],
     correctAnswer: 0
   },
@@ -136,8 +136,8 @@ const questionsList: Question[] = [
   },
   {
     id: 23,
-    text: "6x + 3y - 2 = 0 to'g'ri chiziqqa perpendikulyar bo'lgan to'g'ri chiziqning burchak koeffitsientini toping.",
-    options: ["2", "-2", "1/2", "-1/2"],
+    text: "6x + 3y - 2 = 0 to'g'ri chiziqqa perpendikulyar bo'lgan to'g'ri chiziq burchak koeffitsientini toping.",
+    options: ["1/2", "2", "-2", "-1/2"],
     correctAnswer: 0
   },
   {
@@ -179,7 +179,7 @@ const questionsList: Question[] = [
   {
     id: 30,
     text: "Normali n = {1; 2; 3} bo'lgan, koordinatalar boshidan o'tuvchi tekislik tenglamasini tuzing.",
-    options: ["x + 2y + 3z = 0", "x/2 + y/3 + z = 0", "x + y + z = 1", "x + 2y + 3z = 1"],
+    options: ["x + 2y + 3z = 0", "x + y/2 + z/3 = 0", "x + y/2 + z/3 = 1", "x + 2y + 3z = 1"],
     correctAnswer: 0
   },
   {
@@ -191,7 +191,7 @@ const questionsList: Question[] = [
   {
     id: 32,
     text: "x = t, y = t, z = 3t - 5 to'g'ri chiziq va x + y - 4 = 0 tekislik kesishgan nuqtasini toping.",
-    options: ["(2; 2; 1)", "(0; 0; 5)", "(1; 1; 3)", "(0; 0; 5)"],
+    options: ["(2; 2; 1)", "(0; 0; 5)", "(1; 1; 3)", "(3; 3; 4)"],
     correctAnswer: 0
   },
   {
@@ -203,7 +203,7 @@ const questionsList: Question[] = [
   {
     id: 34,
     text: "Ellipsning katta yarim o'qi 5 ga, kichik yarim o'qi 2 ga teng. Uning tenglamasini tuzing.",
-    options: ["x²/25 + y²/4 = 1", "x²/5 + y²/2 = 1", "(x-5)² + (y-2)² = 1", "x²/5 - y²/2 = 1"],
+    options: ["x²/25 + y²/4 = 1", "x²/5 + y²/2 = 1", "(x-5)² + (y-2)² = 1", "x²/25 - y²/4 = 1"],
     correctAnswer: 0
   },
   {
@@ -221,7 +221,7 @@ const questionsList: Question[] = [
   {
     id: 37,
     text: "Qaysi holda f(x) funksiyaning a nuqtadagi uzilishi bartaraf qilish mumkin bo'lgan uzilish deyiladi?",
-    options: ["f(a-0) = f(a+0) ≠ f(a)", "f(a-0) > f(a+0)", "f(a+0) va f(a-0) mavjud emas", "f(a+0) ≠ f(a-0)"],
+    options: ["f(a-0) = f(a+0) ≠ f(a)", "f(a-0) > f(a+0)", "f(a+0) va f(a-0) larning bittasi mavjud emas", "f(a+0) ≠ f(a-0)"],
     correctAnswer: 0
   },
   {
@@ -239,7 +239,7 @@ const questionsList: Question[] = [
   {
     id: 40,
     text: "y = arcsin x funksiyaning differensialini toping.",
-    options: ["dy = dx / √(1-x²)", "dy = -dx / √(1-x²)", "dy = dx / (1+x²)", "dy = -dx / (1+x²)"],
+    options: ["dy = dx / √(1-x²)", "dy = -dx / √(1+x²)", "dy = dx / (1+x²)", "dy = -dx / (1-x²)"],
     correctAnswer: 0
   },
   {
@@ -293,7 +293,7 @@ const questionsList: Question[] = [
   {
     id: 49,
     text: "y = 3ˣ funksiyaning 10-tartibli hosilasini toping.",
-    options: ["3ˣ · (ln 3)¹⁰", "3ˣ · ln 3", "3ˣ · ln⁹ 3", "(3ˣ / ln 3) · 10"],
+    options: ["3ˣ · (ln 3)¹⁰", "3ˣ · ln 3", "3ˣ · ln⁹ 3", "3ˣ / (ln 3)¹⁰"],
     correctAnswer: 0
   },
   {
@@ -316,8 +316,8 @@ const questionsList: Question[] = [
   },
   {
     id: 53,
-    text: "f(x) = 1 / √(x²-1) funksiyaning aniqlanish sohasini toping.",
-    options: ["(-∞; -1) ∪ (1; ∞)", "(-∞; 1)", "(1; ∞)", "(-1; ∞)"],
+    text: "f(x) = (x-2)/(x²-1) funksiyaning aniqlanish sohasini toping.",
+    options: ["(-∞; -1) ∪ (-1; 1) ∪ (1; ∞)", "(-∞; 1)", "(1; ∞)", "(-1; ∞)"],
     correctAnswer: 0
   },
   {
@@ -352,13 +352,13 @@ const questionsList: Question[] = [
   },
   {
     id: 59,
-    text: "Agar ketma-ketlik yaqinlashuvchi bo'lsa, u ... bo'ladi.",
-    options: ["chegaralangan", "chegaralanmagan", "monoton", "to'g'ri javob yo'q"],
+    text: "Agar ketma-ketlik ... bo'lsa u chegaralangan bo'ladi.",
+    options: ["yaqinlashuvchi", "chegaralanmagan", "monoton", "uzoqlashuvchi"],
     correctAnswer: 0
   },
   {
     id: 60,
-    text: "Agar lim xₙ = a, lim yₙ = a va xₙ ≤ zₙ ≤ yₙ bo'lsa, lim zₙ nimaga teng?",
+    text: "Agar lim xₙ = a, lim yₙ = a bo'lib, xₙ ≤ zₙ ≤ yₙ bo'lsa, lim zₙ nimaga teng?",
     options: ["a", "< a", "> a", "0"],
     correctAnswer: 0
   },
@@ -371,7 +371,7 @@ const questionsList: Question[] = [
   {
     id: 62,
     text: "(-4; 6) nuqtadan o'tib, koordinata o'qlari bilan 6 yuzali uchburchak hosil qiluvchi chiziq tenglamasi.",
-    options: ["x/4 + y/3 = 1", "x/-4 + y/3 = 1", "y = -4x + 3", "x - 2y + 3z = 0"],
+    options: ["x/4 + y/3 = -1", "x/(-4) + y/3 = 1", "y = -4x + 3", "x/4 + y/3 = 1"],
     correctAnswer: 0
   },
   {
@@ -389,7 +389,7 @@ const questionsList: Question[] = [
   {
     id: 65,
     text: "x² + 4y² = 16 ellipsning ekstrisentrisitetini toping.",
-    options: ["√3 / 2", "2√3", "2", "3"],
+    options: ["√3 / 2", "2√3", "2", "√3 / 3"],
     correctAnswer: 0
   },
   {
@@ -431,7 +431,7 @@ const questionsList: Question[] = [
   {
     id: 72,
     text: "y = k₁x + b₁ va y = k₂x + b₂ to'g'ri chiziqlarning parallellik sharti.",
-    options: ["k₁ - k₂ = 0", "k₁ + k₂ = 0", "k₁k₂ = 1", "k₁k₂ = -1"],
+    options: ["k₁ = k₂", "k₁ + k₂ = 0", "k₁k₂ = 1", "k₁k₂ = -1"],
     correctAnswer: 0
   },
   {
@@ -442,7 +442,7 @@ const questionsList: Question[] = [
   },
   {
     id: 74,
-    text: "3-tartibli determinant ni hisoblang (2x2 qismi):\n\n│ 3  -2 │\n│ 4   6 │",
+    text: "Determinantni hisoblang:\n\n│ 3  -2 │\n│ 4   6 │",
     options: ["26", "24", "28", "10"],
     correctAnswer: 0
   },
@@ -527,7 +527,7 @@ const questionsList: Question[] = [
   {
     id: 88,
     text: "y = arcsin √(1 - 4x) funksiya hosilasini toping.",
-    options: ["-1 / √(x - 4x²)", "-2 / √(4x - 16x²)", "-4 / √(1 - 16x²)", "-4 / √(1 - 4x)"],
+    options: ["-2 / √(x - 4x²)", "-2 / √(4x - 16x²)", "-4 / √(1 - 16x²)", "-4 / √(1 - 4x)"],
     correctAnswer: 0
   },
   {
@@ -539,7 +539,7 @@ const questionsList: Question[] = [
   {
     id: 90,
     text: "Determinantdan qanday ko'paytuvchilarni tashqariga chiqarish mumkin?\n\n│  2   6   1 │\n│ 10  15   5 │\n│ 14  21   7 │",
-    options: ["2, 3", "2, 3, 5, 7", "2, 3, 5", "2, 3, 7"],
+    options: ["2, 3, 5, 7", "2, 3", "2, 3, 5", "2, 3, 7"],
     correctAnswer: 0
   },
   {
@@ -557,7 +557,7 @@ const questionsList: Question[] = [
   {
     id: 93,
     text: "3A - B ni hisoblang:\n\n    ⎛ 1  2  3 ⎞     ⎛ 1  2  0 ⎞\nA = ⎜ 3  1  2 ⎟ B = ⎜ 3  1  3 ⎟\n    ⎝ 2  1  4 ⎠     ⎝ 1  2  4 ⎠",
-    options: ["⎛ 2  4  9 ⎞\n⎜ 6  2  3 ⎟\n⎝ 5  1  8 ⎠", "⎛ -2  2  3 ⎞\n⎜ 6   2  9 ⎟\n⎝ 7   1  8 ⎠", "⎛ -2  8  9 ⎞\n⎜ 6   2  9 ⎟\n⎝ 5   1  8 ⎠", "⎛ -2  8  9 ⎞\n⎜ 6   2  9 ⎟\n⎝ 5   1  8 ⎠"],
+    options: ["⎛ 2  4  9 ⎞\n⎜ 6  2  3 ⎟\n⎝ 5  1  8 ⎠", "⎛ -2  2  3 ⎞\n⎜ 6   2  9 ⎟\n⎝ 7   1  8 ⎠", "⎛ -2  8  9 ⎞\n⎜ 6   2  9 ⎟\n⎝ 5   1  8 ⎠", "⎛ 0   0  9 ⎞\n⎜ 6   2  3 ⎟\n⎝ 5  -1  8 ⎠"],
     correctAnswer: 0
   },
   {
@@ -605,7 +605,7 @@ const questionsList: Question[] = [
   {
     id: 101,
     text: "Determinantdan qanday ko‘paytuvchilarni tashqariga chiqarish mumkin?\n\n    │ 2  6  1 │\nΔ = │ 10 15 5 │\n    │ 14 21 7 │",
-    options: ["2, 3", "2, 3, 5, 7", "2, 3, 5", "2, 3, 7"],
+    options: ["2, 3, 5, 7", "2, 3", "2, 3, 5", "2, 3, 7"],
     correctAnswer: 0
   },
   {
@@ -671,7 +671,7 @@ const questionsList: Question[] = [
   {
     id: 112,
     text: "Agar A(0;0;1), B(3;2;1), C(4;6;5), D(1;6;3) berilgan bo‘lsa, a = AB + CD vektorni toping.",
-    options: ["a = (0; 2; -2)", "a = (5; 14; 10)", "a = (4; 7; -2)", "a = (7; 1; 0)"],
+    options: ["a = (5; 14; 10)", "a = (0; 2; -2)", "a = (4; 7; -2)", "a = (7; 1; 0)"],
     correctAnswer: 0
   },
   {
@@ -689,1033 +689,1321 @@ const questionsList: Question[] = [
   {
     id: 115,
     text: "a = (2; 3; -1) va b = (1; -5; m) vektorlar m ning qanday qiymatlarida o‘zaro perpendikulyar bo‘ladi?",
-    options: ["-13", "-11", "13", "14"],
+    options: ["13", "-11", "-13", "14"],
     correctAnswer: 0
   },
   {
     id: 116,
     text: "a = 2i - j va b = 3k vektorlar berilgan. a × b vektorli ko‘paytma topilsin.",
-    options: ["-3i - 6j", "3i + 6j", "3i - 6j", "-3i - 6j"],
+    options: ["-3i - 6j", "3i + 6j", "3i - 6j", "-3i + 6j"],
     correctAnswer: 0
   },
   {
     id: 117,
     text: "a(x₁; y₁; z₁), b(x₂; y₂; z₂), c(x₃; y₃; z₃) vektorlarning komplanarlik sharti.",
-    options: ["Det(x₁,y₁,z₁; x₂,y₂,z₂; x₃,y₃,z₃) = 0", "Det ≠ 0", "x₁x₂ + y₁y₂ + z₁z₂ = 0", "Koordinatalar yig'indisi 0"],
+    options: ["Det(x₁,x₂,x₃; y₁,y₂,y₃; z₁,z₂,z₃) = 0", "Det ≠ 0", "x₁x₂ + y₁y₂ + z₁z₂ = 0", "Koordinatalar yig'indisi 0"],
     correctAnswer: 0
   },
   {
-    id: 120,
+    id: 118,
     text: "Ordinata o‘qidagi b = -3 nuqtadan o‘tuvchi va Ox o‘qining musbat yo‘nalishi bilan α = π/6 burchak tashkil qiluvchi to‘g‘ri chiziq tenglamasini ko‘rsating.",
     options: ["x - √3y - 3√3 = 0", "3x - 3y - 2 = 0", "y = (√3/3)x + 3", "√3y + x - 3 = 0"],
     correctAnswer: 0
   },
   {
-    id: 121,
+    id: 119,
     text: "A(3; -1) va B(4; 2) nuqtalar orqali o‘tuvchi to‘g‘ri chiziq tenglamasi tuzilsin.",
     options: ["y = 3x - 10", "y = -3x - 10", "y = 3x + 10", "y = 3x - 8"],
     correctAnswer: 0
   },
   {
-    id: 122,
+    id: 120,
     text: "A(2; -1) nuqtadan o‘tuvchi va y = -0.5x + 5 to‘g‘ri chiziqqa perpendikulyar bo‘lgan to‘g‘ri chiziq tenglamasi tuzilsin.",
     options: ["y = 2x - 5", "y = -2x + 7", "y = 2x + 7", "y = 2x - 7"],
     correctAnswer: 0
   },
   {
-    id: 123,
+    id: 121,
     text: "M(3; -1) va N(7; 2) nuqtalar orasidagi masofa topilsin.",
     options: ["5", "6", "8", "10"],
     correctAnswer: 0
   },
   {
-    id: 124,
+    id: 122,
     text: "M(2; 1) nuqtadan 3x + 4y + 5 = 0 to‘g‘ri chiziqqacha bo‘lgan masofa topilsin.",
     options: ["3", "1", "2", "4"],
     correctAnswer: 0
   },
   {
-    id: 125,
+    id: 123,
     text: "2x - 3y - z + 12 = 0 va 5x + y + Cz - 15 = 0 tekisliklar C ning qanday qiymatida perpendikulyar bo‘ladi.",
     options: ["7", "5", "9", "11"],
     correctAnswer: 0
   },
   {
-    id: 126,
+    id: 124,
     text: "(x-2)/3 = (y+1)/2 = (z-5)/-1 to‘g‘ri chiziq va Ax + 2y + 7z + 5 = 0 tekislik A ning qanday qiymatida parallel bo‘ladi?",
     options: ["1", "-2", "-1", "0"],
     correctAnswer: 0
   },
   {
-    id: 127,
+    id: 125,
     text: "x²/20 + y²/16 = 1 ellipsning M(0; 4) nuqtasidan o‘tuvchi urinmaning tenglamasini toping.",
     options: ["y = 4", "y = x + 4", "x = 4", "y = -4"],
     correctAnswer: 0
   },
   {
-    id: 128,
+    id: 126,
     text: "25x² + 125y² = 625 ellips o‘qlari ning uzunliklari topilsin.",
     options: ["a = 5, b = √5", "a = 5, b = -5", "a = 5, b = 5", "a = √5, b = 5"],
     correctAnswer: 0
   },
   {
-    id: 129,
+    id: 127,
     text: "4x² - 9y² = 36 giperbolaning yarim o‘qlari uzunliklari topilsin.",
     options: ["a = 3, b = 2", "a = 2, b = 3", "a = 3, b = -2", "a = -3, b = 2"],
     correctAnswer: 0
   },
   {
-    id: 130,
+    id: 128,
     text: "Fokuslari orasidagi masofa 2c=8, uchlari orasidagi masofa 2a=6 bo‘lgan giperbola tenglamasi tuzilsin.",
     options: ["x²/9 - y²/7 = 1", "x²/9 - y²/6 = 1", "x²/6 - y²/4 = 1", "x²/8 - y²/6 = 1"],
     correctAnswer: 0
   },
   {
-    id: 131,
+    id: 129,
     text: "y² = 8x parabola direktrisasi tenglamasini tuzing.",
     options: ["x = -2", "x = 2", "x = 4", "x = -4"],
     correctAnswer: 0
   },
   {
-    id: 132,
+    id: 130,
     text: "Fokusi (6; 0) nuqtada bo‘lgan parabola tenglamasi tuzilsin.",
     options: ["y² = 24x", "y² = 8x", "y² = 4x", "y² = 14x"],
     correctAnswer: 0
   },
   {
-    id: 135,
+    id: 131,
     text: "x² + y² - 6x = 0 aylananing radiusi aniqlansin.",
     options: ["R = 3", "R = 6", "R = 1", "R = 4"],
     correctAnswer: 0
   },
   {
-    id: 136,
+    id: 132,
     text: "Radiusi R = 2 ga teng va markazi C(-1; 3) nuqtada bo‘lgan aylana tenglamasi tuzilsin.",
     options: ["(x+1)² + (y-3)² = 4", "x² + y² - 2x + 6y + 6 = 0", "x² + y² + 2x + 6y + 6 = 0", "x² + y² + 2x - 6y = 0"],
     correctAnswer: 0
   },
   {
-    id: 138,
+    id: 133,
     text: "Hisoblang: lim(x→4) (x² - 2x - 8) / (x² - 16)",
     options: ["3/4", "2/3", "-2/3", "4/3"],
     correctAnswer: 0
   },
   {
-    id: 139,
+    id: 134,
     text: "Hisoblang: lim(x→∞) (1 - 3/x)ˣ",
     options: ["e⁻³", "-3e³", "3e³", "e³"],
     correctAnswer: 0
   },
   {
-    id: 140,
+    id: 135,
     text: "Hisoblang: lim(x→∞) sin(2/x) / (3/x)",
     options: ["2/3", "-3/2", "3/2", "-2/3"],
     correctAnswer: 0
   },
   {
-    id: 141,
+    id: 136,
     text: "Hisoblang: lim(x→∞) (2x² + 3) / (x² + 3x + 5)",
     options: ["2", "1", "3", "4"],
     correctAnswer: 0
   },
   {
-    id: 142,
+    id: 137,
     text: "Hisoblang: lim(x→∞) √(x² + 3 + x) / (2x - 1)",
-    options: ["1", "0,5", "1,5", "2"],
+    options: ["1", "0.5", "1.5", "2"],
     correctAnswer: 0
   },
   {
-    id: 143,
+    id: 138,
     text: "Hisoblang: lim(x→-1) (x² - 1) / (x³ + 1)",
     options: ["-2/3", "1", "-1", "2"],
     correctAnswer: 0
   },
   {
-    id: 144,
+    id: 139,
     text: "Hisoblang: lim(x→0) x · ctg(x/2)",
     options: ["2", "π/2", "2/π", "-π/2"],
     correctAnswer: 0
   },
   {
-    id: 145,
+    id: 140,
     text: "Hisoblang: lim(x→3) (1/(x-3) - 6/(x²-9))",
     options: ["1/6", "-3", "+∞", "0"],
     correctAnswer: 0
   },
   {
-    id: 146,
+    id: 141,
     text: "y = 1/(3ˣ⁻²) funksiyaning uzluksizligi tekshirilsin va uzilish nuqtasining turi aniqlansin.",
     options: ["Uzluksiz funksiya", "Funksiya x=2 nuqtada 2-tur uzilishga ega.", "Funksiya x=2 nuqtada 1-tur uzilishga ega.", "x=2 qutilib bo‘ladigan uzilish nuqta"],
-    correctAnswer: 0
+    correctAnswer: 1
   },
   {
-    id: 147,
+    id: 142,
     text: "y = 1/(x²-1) funksiyaning uzluksizligi tekshirilsin va uzilish nuqtasining turi aniqlansin.",
     options: ["Funksiya x=±1 nuqtalarda 2-tur uzilishga ega.", "Funksiya x=±1 nuqtalarda 1-tur uzilishga ega.", "Funksiya x=1 nuqtada 2-tur uzilishga ega.", "Funksiya x=-1 nuqtada 2-tur uzilishga ega."],
     correctAnswer: 0
   },
   {
-    id: 148,
+    id: 143,
     text: "y = (3-x²)³ funksiyaning hosilasi topilsin:",
     options: ["-6x(3-x²)²", "3x(3-x²)²", "6x(3-x²)²", "-3x(3-x²)²"],
     correctAnswer: 0
   },
   {
-    id: 149,
+    id: 144,
     text: "y = ln(1 - cos x) funksiyaning hosilasi topilsin:",
     options: ["ctg(x/2)", "tg(x/2)", "-tg(x/2)", "-ctg(x/2)"],
     correctAnswer: 0
   },
   {
-    id: 150,
+    id: 145,
     text: "y = e^(-cos x) funksiyaning hosilasi topilsin:",
     options: ["y' = sin x · e^(-cos x)", "y' = -cos x · e^(-cos x)", "y' = cos x · e^(-cos x)", "y' = -sin x · e^(-cos x)"],
     correctAnswer: 0
   },
   {
-    id: 151,
+    id: 146,
     text: "y = (1 - x³)/π funksiyaning hosilasi topilsin:",
     options: ["-3x²/π", "(3/π)x²", "(3/π²)x²", "(3/π)x²"],
     correctAnswer: 0
   },
   {
-    id: 152,
+    id: 147,
     text: "y = sin(x²) funksiyaning hosilasi topilsin:",
     options: ["y' = 2x cos(x²)", "y' = 2sin x", "y' = 2x sin(x²)", "y' = 2cos(x²)"],
     correctAnswer: 0
   },
   {
-    id: 153,
+    id: 148,
     text: "y = x ln x funksiyaning y' hosilasi topilsin:",
     options: ["ln x + 1", "1 + 1/x", "x + 1/x", "1/x"],
     correctAnswer: 0
   },
   {
-    id: 154,
+    id: 149,
     text: "x = ln t, y = t² - 1 funksiyaning dy/dx hosilasi topilsin:",
     options: ["2t²", "1/(2t²)", "2t", "t²"],
     correctAnswer: 0
   },
   {
-    id: 155,
+    id: 150,
     text: "y = arcsin(eˣ) funksiyaning hosilasi topilsin:",
     options: ["eˣ / √(1 - e²ˣ)", "eˣ / √(1 + e²ˣ)", "1 / √(1 - e²ˣ)", "-eˣ / √(1 - e²ˣ)"],
     correctAnswer: 0
   },
   {
-    id: 156,
+    id: 151,
     text: "x² + y² = 1 oshkormas funksiyaning hosilasi topilsin:",
     options: ["y' = -x/y", "y' = x/y", "y' = y/x", "y' = -y/x"],
     correctAnswer: 0
   },
   {
-    id: 157,
+    id: 152,
     text: "y = arccos(1-2x) funksiya hоsilasini tоping",
     options: ["1 / √(x - x²)", "-2 / √(1 - 2x)", "1 / (1 - 2x)", "-1 / (1 - 2x)"],
     correctAnswer: 0
   },
   {
-    id: 158,
+    id: 153,
     text: "y = x - arctg x funksiya hоsilasini tоping",
     options: ["x² / (1 + x²)", "1 / (1 + x²)", "1 - 1/cos²x", "1 + 1/(1+x²)"],
     correctAnswer: 0
   },
   {
-    id: 159,
+    id: 154,
     text: "y = 4x - x² funksiyaning ekstremumini hisоblang",
     options: ["x=2, ymax=4", "x=4, y=0", "x=0, ymin=0", "x=1, ymax=3"],
     correctAnswer: 0
   },
   {
-    id: 160,
+    id: 155,
     text: "y = √x funksiyaning o‘sish oraliqini toping",
     options: ["x > 0", "x < 0", "x > 1", "x < 1"],
     correctAnswer: 0
   },
   {
-    id: 161,
+    id: 156,
     text: "y = ln x funksiyaning kamayish oraliqini toping",
     options: ["Funksiya x > 0 da faqat o‘suvchi", "x > 0", "x < 0", "x < 1"],
     correctAnswer: 0
   },
   {
-    id: 162,
+    id: 157,
     text: "y = x² funksiyaning o‘sish oraliqini toping",
     options: ["x > 0", "x < 3", "x > 1", "x < 1"],
     correctAnswer: 0
   },
   {
-    id: 163,
+    id: 158,
     text: "x² + y² - 2x + y = 0 aylananing markazini toping.",
     options: ["(1, -1/2)", "(1, 2)", "(0, 2)", "(1, 1)"],
     correctAnswer: 0
   },
   {
-    id: 164,
+    id: 159,
     text: "lim(n→∞) (n² - 1) / (n³ + n² - n - 1) ni aniqlang",
     options: ["0", "1/2", "1/3", "1"],
     correctAnswer: 0
   },
   {
-    id: 165,
+    id: 160,
     text: "lim(x→2) (x² - 5x + 6) / (x² - 4) ni aniqlang",
     options: ["-1/4", "1/2", "1/3", "-2/3"],
     correctAnswer: 0
   },
   {
-    id: 166,
+    id: 161,
     text: "To'g'ri chiziqning umumiy tеnglamasini kursating",
     options: ["Ax+By+C=0", "y=kx+b", "x/a + y/b = 1", "xcosα+ysinα-ρ=0"],
     correctAnswer: 0
   },
   {
-    id: 167,
+    id: 162,
     text: "To'g'ri chiziqning nоrmal tеnglamasini kursating",
     options: ["xcosα+ysinα-ρ=0", "Ax+By+C=0", "y=kx+b", "x/a + y/b = 1"],
     correctAnswer: 0
   },
   {
-    id: 168,
+    id: 163,
     text: "To'g'ri chiziqning kеsmalar buyicha tеnglamasini kursating",
     options: ["x/a + y/b = 1", "Ax+By+C=0", "y=kx+b", "xcosα+ysinα-ρ=0"],
     correctAnswer: 0
   },
   {
-    id: 169,
+    id: 164,
     text: "To'g'ri chiziqning burchak kоeffitsiеnti tеnglamasini kursating",
     options: ["y=kx+b", "Ax+By+C=0", "x/a + y/b = 1", "xcosα+ysinα-ρ=0"],
     correctAnswer: 0
   },
   {
-    id: 170,
+    id: 165,
     text: "Aylana tеnglamasini kursating",
     options: ["(x-a)² + (y-b)² = R²", "x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "y² = 2px"],
     correctAnswer: 0
   },
   {
-    id: 171,
+    id: 166,
     text: "Ellips tеnglamasini kursating",
     options: ["x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "(x-a)² + (y-b)² = R²", "y² = 2px"],
     correctAnswer: 0
   },
   {
-    id: 172,
+    id: 167,
     text: "Gipеrbоla tеnglamasini kursating",
     options: ["x²/a² - y²/b² = 1", "x²/a² + y²/b² = 1", "(x-a)² + (y-b)² = R²", "y² = 2px"],
     correctAnswer: 0
   },
   {
-    id: 173,
+    id: 168,
     text: "Parabоla tеnglamasini kursating",
     options: ["y² = 2px", "x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "(x-a)² + (y-b)² = R²"],
     correctAnswer: 0
   },
   {
-    id: 174,
+    id: 169,
     text: "lim(n→∞) (n² + 1) / (n² - n - 1) ni aniqlang",
     options: ["1", "1/2", "1/3", "0"],
     correctAnswer: 0
   },
   {
-    id: 175,
+    id: 170,
     text: "lim(x→1) (x - 1) / (√x - 1) ni aniqlang",
     options: ["2", "1", "1/4", "-2/3"],
     correctAnswer: 0
   },
   {
-    id: 176,
+    id: 171,
     text: "│ sin a   cos a │\n│ -cos a  sin a │ ni hisoblang",
     options: ["1", "2", "3", "4"],
     correctAnswer: 0
   },
   {
-    id: 177,
+    id: 172,
     text: "│ -x  1  x │\n│  0 -x -1 │\n│  x  1 -x │ ni hisoblang",
     options: ["-2x", "-4x²", "2x³", "2"],
     correctAnswer: 0
   },
   {
-    id: 178,
+    id: 173,
     text: "lim(x→a) (√x - √a) / (x - a) (a > 0) ni hisoblang",
     options: ["1/(2√a)", "-0,5", "-1", "1"],
     correctAnswer: 0
   },
   {
-    id: 179,
+    id: 174,
     text: "lim(x→∞) (3x - 1) / (x² + 1) ni hisoblang",
     options: ["0", "∞", "3", "1"],
     correctAnswer: 0
   },
   {
-    id: 180,
+    id: 175,
     text: "lim(x→-2) (3x + 6) / (x³ + 8) ni hisoblang",
     options: ["1/4", "1/3", "3", "4"],
     correctAnswer: 0
   },
   {
-    id: 181,
+    id: 176,
     text: "lim(x→1) (1/(x-1) - 2/(x²-1)) ni hisoblang",
     options: ["1/2", "1/4", "1", "2"],
     correctAnswer: 0
   },
   {
-    id: 182,
+    id: 177,
     text: "y = x + 2√x funksiya hоsilasini tоping",
     options: ["1 + 1/√x", "1/(1+√x)", "x²/2 + √x", "1 + 2x·√x"],
     correctAnswer: 0
   },
   {
-    id: 183,
+    id: 178,
     text: "y = sin √x funksiya hоsilasini tоping",
     options: ["cos(√x) / (2√x)", "cos √x", "√x · cos √x", "cos √x / √x"],
     correctAnswer: 0
   },
   {
-    id: 184,
+    id: 179,
     text: "y = a^(sin x) funksiya hоsilasini tоping",
     options: ["a^(sin x) · cos x · ln a", "a^(sin x) · ln a", "a^(sin x) / ln a", "a^(sin x) · cos x"],
     correctAnswer: 0
   },
   {
-    id: 185,
+    id: 180,
     text: "x² + y² + x = 0 aylananing radiusini toping.",
     options: ["1/2", "1", "1/3", "2"],
     correctAnswer: 0
   },
   {
-    id: 186,
+    id: 181,
     text: "x² + y² + 4y = 0 aylananing markazini toping.",
     options: ["(0, -2)", "(1, 2)", "(1, -1/2)", "(1, 1)"],
     correctAnswer: 0
   },
   {
-    id: 187,
+    id: 182,
     text: "y = xⁿ funksiya diffеrеnsialini aniqlang",
     options: ["dy = n xⁿ⁻¹ dx", "dy = xⁿ⁻¹ dx", "dy = (xⁿ⁺¹)/(n+1) dx", "F(x) = (xⁿ⁺¹)/(n+1)"],
     correctAnswer: 0
   },
   {
-    id: 188,
+    id: 183,
     text: "Tenglamalar sistemasini yeching:\n⎧ x - 2y + 3z = 4\n⎨ 7x - 4y - z = 6\n⎩ -x + 2y - 3z = -4",
     options: ["(0; 1; 1)", "(1; 2; -3)", "(1; 0; 1)", "(2; 0; 1)"],
     correctAnswer: 0
   },
   {
-    id: 189,
+    id: 184,
     text: "Tenglamalar sistemasini yeching:\n⎧ -2x + 2y + z = 0\n⎨ 3x + y - z = 4\n⎩ x - 2y - 2z = -1",
     options: ["(1; 1; 0)", "(0; 1; 1)", "(1; 0; 2)", "(2; 0; 1)"],
     correctAnswer: 0
   },
   {
-    id: 190,
+    id: 185,
     text: "x² + y² - 2y = 0 aylananing radiusini toping.",
     options: ["1", "2", "3", "4"],
     correctAnswer: 0
   },
   {
-    id: 191,
+    id: 186,
     text: "y = √(x+1) funksiyaning o‘sish oraliqini toping",
     options: ["x ≥ -1", "x > 0", "x ≤ -1", "x < 1"],
     correctAnswer: 0
   },
   {
-    id: 192,
+    id: 187,
     text: "│ 2 -1  2 │\n│ 2  0  4 │\n│ 0  1  1 │ ni hisoblang",
     options: ["-2", "1", "0", "-1"],
     correctAnswer: 0
   },
   {
-    id: 193,
+    id: 188,
     text: "│   x    4 │\n│ -2x²  2x │ ni hisoblang",
     options: ["10x²", "3x²", "x²", "2x²"],
     correctAnswer: 0
   },
   {
-    id: 194,
+    id: 189,
     text: "y = log₂ x funksiya diffеrеnsialini aniqlang",
     options: ["dy = 1/(x ln 2) dx", "dy = 1/(2x) dx", "dy = xⁿ⁺¹/(n+1) dx", "dy = 1/(2x ln 2) dx"],
     correctAnswer: 0
   },
   {
-    id: 195,
+    id: 190,
     text: "Boshlari bir nuqtaga keltirilgan noldan farqli a va b vektorlar oxirlarini birlashtirish natijasida xosil bo‘lgan uchburchak yuzi:",
     options: ["Ularning vektor ko‘paytmasi modulini yarmiga teng.", "Shu vektorlar modullari ko‘paytmasiga teng.", "Shu vektorlar modullari ko‘paytmasining yarmiga teng.", "Ularning skalyar ko‘paytmasi modulini yarmiga teng."],
     correctAnswer: 0
   },
   {
-    id: 196,
+    id: 191,
     text: "Uzunliklari teng, bir xil yo‘nalishga ega ikkita vektorlarga ...",
     options: ["o‘zaro teng vektorlar deyiladi.", "birlik vektorlar deyiladi;", "Qarama-qarshi vektorlar deyiladi;", "ortogonal vektorlar deyiladi;"],
     correctAnswer: 0
   },
   {
-    id: 197,
+    id: 192,
     text: "To‘g‘ri chiziqning kesmalardagi tenglamasini aniqlang",
     options: ["x/a + y/b = 1", "ax+by+c=0", "y=kx+l", "(x-x₁)/(x₂-x₁) = (y-y₁)/(y₂-y₁)"],
     correctAnswer: 0
   },
   {
-    id: 198,
+    id: 193,
     text: "Ellips deb nimaga aytiladi?",
     options: ["Tekislikda fiksirlangan F₁ va F₂ nuqtalargacha masofalarining yig‘indisi o‘zgarmas bo‘lgan nuqtalarning geometrik o‘rniga.", "Tekislikda fiksirlangan F₁ va F₂ nuqtalardan bir xil uzoqlikdagi barcha nuqtalarning geometrik o‘rniga.", "Tekislikda fiksirlangan nuqta va to‘g‘ri chiziqdan bir xil uzoqlikdagi nuqtalar o‘rniga.", "Masofalarning ayirmasi o'zgarmas bo'lgan nuqtalar o'rniga."],
     correctAnswer: 0
   },
   {
-    id: 199,
+    id: 194,
     text: "Ikkita bir xil tartibli matrisalarning yig‘indisi deb",
     options: ["mos elementlarini qo‘shishdan hosil qilingan matrisaga aytiladi.", "mos elementlarini ko‘paytirishdan hosil qilingan matrisaga aytiladi.", "Birinchi matrisaning satri elementlarini ikkinchi matrisaning ustuni elementlariga ko‘paytirib qo‘shishdan hosil qilingan matrisaga aytiladi.", "Birinchi matrisaning satri elementlarini ikkinchi matrisaning ustuni elementlariga qo‘shishdan hosil qilingan matrisaga aytiladi."],
     correctAnswer: 0
   },
   {
-    id: 206,
+    id: 195,
     text: "a = -2i + 3j + βk, b = αi - 6j + 2k vektorlar α va β ning qanday qiymatlarida kollinear bo‘ladi?",
     options: ["α = 4; β = -1", "α = 1; β = 2", "α = 0; β = 1", "α = 5; β = 3"],
     correctAnswer: 0
   },
   {
-    id: 207,
+    id: 196,
     text: "x²/25 + y²/9 = 1 ellips tenglamasidan ε eksstentrisitet qiymatini aniqlang.",
     options: ["4/5", "5/4", "2/5", "3/4"],
     correctAnswer: 0
   },
   {
-    id: 208,
+    id: 197,
     text: "Determinatni xisoblang:\n│  1  0 -1 │\n│  2  3  1 │\n│  3  4 -2 │",
     options: ["-9", "10", "1", "0"],
     correctAnswer: 0
   },
   {
-    id: 209,
+    id: 198,
     text: "5x - y + 7 = 0 va 3x + 2y = 0 to‘g‘ri chiziqlar orasidagi burchakni aniqlang.",
     options: ["45°", "30°", "60°", "90°"],
     correctAnswer: 0
   },
   {
-    id: 210,
+    id: 199,
     text: "x va y vektorlarning uzunliklari 11 va 23 ga, bu vektorlar ayirmasining uzunligi 30 ga teng. Shu vektorlar yig‘indisining uzunligini toping.",
     options: ["20", "34", "64", "42"],
-    correctAnswer: 0
+    correctAnswer: 3
   },
   {
-    id: 211,
+    id: 200,
     text: "a(1; 2) va b(2;1) vektorlar orasidagi burchakning sinusini toping.",
     options: ["3/5", "4/5", "4/7", "1/6"],
     correctAnswer: 0
   },
   {
-    id: 212,
+    id: 201,
     text: "Uchinchi tartibli determinantni qaysi elementining minori │ a₁₁ a₁₃ │\n│ a₂₁ a₂₃ │ ko‘rinishda bo‘ladi?",
     options: ["a₃₂", "a₁₁", "a₂₁", "a₃₁"],
     correctAnswer: 0
   },
   {
-    id: 213,
+    id: 202,
     text: "Birlik matrisa deb,",
     options: ["bosh diagonal elementlari birga teng bo‘lib, qolgan elementlari nollardan iborat matrisaga aytiladi.", "barcha elementlari birga teng matrisaga aytiladi.", "yordamchi diagonal elementlari birga teng bo‘lib, qolgan elementlari nollardan iborat matrisaga aytiladi.", "diagonal matrisaga aytiladi."],
     correctAnswer: 0
   },
   {
-    id: 214,
+    id: 203,
     text: "a = i + 2j - k, b = 3i - j + 2k (a, b) skalyar ko‘paytmani toping",
     options: ["-1", "1", "2", "3"],
     correctAnswer: 0
   },
   {
-    id: 215,
+    id: 204,
     text: "x/2 - y/4 = 5 to'ri chiziqning 0y o‘qi bilan kesishish nuqtasini toping.",
     options: ["(0; -20)", "(0; -15)", "(20; -1)", "(0; 20/3)"],
     correctAnswer: 0
   },
   {
-    id: 216,
+    id: 205,
     text: "Kramer formulasida Δ = 0 bo‘lsa, tenglamalar sistemasi",
     options: ["yechimga ega emas yoki cheksiz ko'p yechimga ega", "Yagona yechimga ega", "Cheksiz ko‘p yechimga ega", "Ikkita yechimga ega"],
     correctAnswer: 0
   },
   {
-    id: 217,
+    id: 206,
     text: "Tekislikda berilgan ikki nuqtadan bir xil uzoqlikda joylashgan nuqtalarning geometrik o'rni... dan iborat bo'ladi.",
     options: ["to‘g'ri chiziq", "Aylana", "Ellips", "Sfera"],
     correctAnswer: 0
   },
   {
-    id: 218,
+    id: 207,
     text: "Tekislikdagi ixtiyoriy nuqtasidan berilgan to‘g‘ri chiziqqacha va berilgan nuqtagacha bo‘lgan masofalari teng bo‘lgan nuqtalarning geometrik o'rni... dan iborat bo‘ladi.",
     options: ["parabola", "Aylana", "Giperbola", "Ellips"],
     correctAnswer: 0
   },
   {
-    id: 219,
+    id: 208,
     text: "Ushbu 3y + 2x - 9 = 0 tenglama bilan berilgan to‘g‘ri chiziqning burchak koeffistienti topilsin",
-    options: ["-2/3", "-1", "-0,5", "1/2"],
+    options: ["-2/3", "-1", "-0.5", "1/2"],
     correctAnswer: 0
   },
   {
-    id: 220,
+    id: 209,
     text: "Agar {xₙ} ketma-ketlik uchun ∃a ∀ε>0 ∃n₀∈N ∀n>n₀ |xₙ - a| < ε shart bajarilsa, u xolda ...",
     options: ["Ketma-ketlik yaqinlashuvchi", "Ketma-ketlik uzoqlashuvchi", "To‘g‘ri javob yo‘q", "Yaqinlashuvchi xam , uzoqlashuvchi xam emas"],
     correctAnswer: 0
   },
   {
-    id: 221,
+    id: 210,
     text: "lim(n→∞) (-1)ⁿ yaqinlashishga tekshiring:",
     options: ["Uzoqlashuvchi", "Yaqinlashuvchi", "Yaqinlashuvchi xam , uzoqlashuvchi xam emas", "To‘g‘ri javob yo‘q"],
     correctAnswer: 0
   },
   {
-    id: 222,
+    id: 211,
     text: "Agar {xₙ} yaqinlashuvchi bo‘lsa ...",
     options: ["chegaralangan", "Chegaralanmagan", "yuqoridan chegaralangan", "quyidan chegaralangan"],
     correctAnswer: 0
   },
   {
-    id: 223,
+    id: 212,
     text: "Quyidagi funksiyalardan qaysi biri juft funksiya?",
     options: ["y = x²", "y = x - 2", "y = x³ - 3", "y = x + 1"],
     correctAnswer: 0
   },
   {
-    id: 224,
+    id: 213,
     text: "Quyidagi nuqtalarning qaysi biri f(x) = -3x + 4 funksiyaning grafigiga tegishli?",
     options: ["(2; -2)", "(3; -5)", "(-3; 5)", "(5; -3)"],
     correctAnswer: 0
   },
   {
-    id: 225,
+    id: 214,
     text: "Quyidagi funksiyalardan qaysi biri (-∞; 0) oraliqda o‘suvchi?",
     options: ["y = 3x + 2", "y = 3/x", "y = 6 - 3x", "y = x²"],
-    correctAnswer: 0
+    correctAnswer: 3
   },
   {
-    id: 226,
+    id: 215,
     text: "f(x) = (x-2)/(x²-1) funksiya aniqlanish soxasini toping.",
     options: ["(-∞;1) ∪ (-1;1) ∪ (1;+∞)", "R", "(-∞;1) ∪ (1+∞)", "(1;+∞)"],
     correctAnswer: 0
   },
   {
-    id: 227,
+    id: 216,
     text: "lim(x→∞) (√2x² + 1) / (5x - 1) limitni hisoblang:",
     options: ["√2 / 5", "∞", "2/5", "-1"],
     correctAnswer: 0
   },
   {
-    id: 228,
+    id: 217,
     text: "f(x) funksiya x = x₀ nuqtada uzluksiz deyiladi, agarda ...",
     options: ["lim(x→x₀) f(x) = f(x₀)", "lim(x→x₀) f(x) = a", "lim(x→x₀) f(x) = ∞", "limit mavjud emas"],
     correctAnswer: 0
   },
   {
-    id: 229,
+    id: 218,
     text: "Agar f(x) funksiya [a, b] da uzluksiz bo‘lsa u shu oraliqda",
     options: ["Chegaralangan", "O‘suvchi bo‘ladi", "Kamayuvchi bo‘ladi", "Differenstiallanuvchi"],
     correctAnswer: 0
   },
   {
-    id: 230,
+    id: 219,
     text: "y = 10/x³, y' topilsin:",
     options: ["-30/x⁴", "-30/x", "-30/x²", "30/x³"],
     correctAnswer: 0
   },
   {
-    id: 231,
+    id: 220,
     text: "Boshlari bir nuqtaga keltirilgan noldan farqli a va b vektorlarlardan yasalgan parallelogramning yuzi.",
     options: ["Ularning vektor ko‘paytmasining moduliga teng.", "Shu vektorlar uzunliklari ko‘paytmasiga teng.", "Shu vektorlar ko‘paytmasining yarmiga teng.", "Ularning skalyar ko‘paytmasining moduliga teng."],
     correctAnswer: 0
   },
   {
-    id: 232,
+    id: 221,
     text: "Kanonik tenglama bilan berilgan ellipsning eksstentrisiteti deb qanday songa aytiladi?",
     options: ["e = c/a bu yerda c = √(a² - b²)", "e = a/c", "e = √(a² + b²)/a", "e = b/a"],
     correctAnswer: 0
   },
   {
-    id: 233,
+    id: 222,
     text: "a = -i + j va b = i - 2j + 2k vektorlar orasidagi burchakni aniqlang.",
     options: ["135°", "30°", "45°", "60°"],
     correctAnswer: 0
   },
   {
-    id: 234,
+    id: 223,
     text: "x²/25 + y²/9 = 1 ellips tenglamasidan ε eksstentrisitet qiymatini aniqlang.",
     options: ["4/5", "5/4", "2/5", "3/4"],
     correctAnswer: 0
   },
   {
-    id: 235,
+    id: 224,
     text: "Determinatni xisoblang:\n│  a  c -b │\n│  a  0  b │\n│  b  a -c │",
     options: ["-2a²b + c²a - b²c", "b²c - 2a²b + c²a", "0", "b²c"],
     correctAnswer: 0
   },
   {
-    id: 236,
+    id: 225,
     text: "Uchlari A(1;-2;4) va B(3;-4;2) nuqtalarda bo‘lgan kesma o‘rtasining koordinatalarini toping.",
     options: ["(2;-3;3)", "(2;-4;3)", "(3;-3;3)", "(2;-3;4)"],
     correctAnswer: 0
   },
   {
-    id: 237,
+    id: 226,
     text: "Agar |a|=6, |a+b|=11 va |a-b|=7 bo‘lsa, |b| ning qiymatini toping.",
     options: ["√85", "7", "5", "2√7"],
     correctAnswer: 1
   },
   {
-    id: 238,
+    id: 227,
     text: "Agar |a|=2, |b|=4 a va b vektorlar orasidagi burchak π/3 ga teng bo‘lsa, 3a-2b va 5a-6b vektorlarning skalyar ko‘paytmasini toping.",
     options: ["-252", "364", "264", "140"],
     correctAnswer: 3
   },
   {
-    id: 239,
+    id: 228,
     text: "m x n matrisa deb",
     options: ["m ta satr n ta ustundan iborat sonlar jadvaliga aytiladi", "m ta ustun n ta satrdan iborat sonlar jadvaliga aytiladi.", "m ta satr n ta ustundan iborat sonlar ko‘paytmasiga aytiladi", "m ta satr n ta ustundan iborat sonlar ko‘paytmalarining yig‘indisiga aytiladi"],
     correctAnswer: 0
   },
   {
-    id: 241,
+    id: 229,
     text: "Quyidagi mulohazalardan qaysi biri noto‘g‘ri?",
     options: ["Matrisalar uchun quyidagi tenglik har doim o‘rinli: AB=BA", "m x n tartibli matrisaga n x p tartibli matrisani ko‘paytirsa, m x p tartibli matrisa hosil bo‘ladi.", "m x n tartibli matrisaga m x n tartibli matrisani qo‘shsa, m x n tartibli matrisa hosil bo‘ladi.", "Matrisalar ko‘paytmasining determinanti, ularning determinantlari ko‘paytmasiga tengdir."],
     correctAnswer: 0
   },
   {
-    id: 242,
+    id: 230,
     text: "Matrisaning teskarisi mavjud bo‘lishligi uchun",
     options: ["determinanti noldan farqli bo‘lishligi zarur va etarli", "determinanti nolga teng bo‘lishligi zarur va etarli", "Kvadrat matrisa bo‘lishligi zarur va etarli", "diagonal matrisa bo‘lishligi zarur va etarli."],
     correctAnswer: 0
   },
   {
-    id: 243,
+    id: 231,
     text: "Sistemaning yechimini Kramer usuli bilan toping:\n⎧ -5x₁ + 7x₂ = 3\n⎩ 2x₁ - 3x₂ = -1",
     options: ["x₁ = -2, x₂ = -1", "Δ = 0 va Kramer usulida echib bo‘lmaydi", "yechim yo‘q", "cheksiz ko‘p yechim"],
     correctAnswer: 0
   },
   {
-    id: 244,
+    id: 232,
     text: "Agar ellips uchun a = 5 va c = 1,4 bo‘lsa, uning ekssentrisitetini toping.",
     options: ["ε = 0,28", "ε = 0,8", "ε = 0,1", "ε = 0,18"],
     correctAnswer: 0
   },
   {
-    id: 245,
+    id: 233,
     text: "Uchburchakning uchlari A(3;-2;1), B(3;0;2) va C(1;2;5) nuqtalarda joylashgan. Shu uchburchakning BD medianasi va AC asosi orasidagi burchakni toping.",
     options: ["90°", "30°", "60°", "45°"],
     correctAnswer: 0
   },
   {
-    id: 246,
+    id: 234,
     text: "5x - y + 7 = 0 va 3x + 2y = 0 to‘g‘ri chiziqlar orasidagi burchakni aniqlang.",
     options: ["45°", "30°", "60°", "90°"],
     correctAnswer: 0
   },
   {
-    id: 247,
+    id: 235,
     text: "Kramer formulasida Δₓ = Δ_y = Δ_z = Δ = 0 bo‘lsa, tenglamalar sistemasi",
     options: ["cheksiz ko‘p yechimga ega", "yechimga ega emas", "yagona yechimga ega", "ikkita yechimga ega."],
     correctAnswer: 0
   },
   {
-    id: 248,
+    id: 236,
     text: "M(-4; 10) nuqtadan o‘tib, koordinata o‘qlaridan teng kesmalar ajratuvchi to‘g‘ri chiziq tenglamasi tuzilsin.",
     options: ["x + y - 6 = 0", "x - y + 14 = 0", "y - 2x - 18 = 0", "3x - 2y + 8 = 0"],
     correctAnswer: 0
   },
   {
-    id: 249,
+    id: 237,
     text: "Tekislikda berilgan nuqtadan bir xil uzoqlikda joylashgan nuqtalarning geometrik o‘rni… dan iborat bo‘ladi.",
     options: ["aylana", "To‘gri chiziq", "ellips", "parabola"],
     correctAnswer: 0
   },
   {
-    id: 250,
+    id: 238,
     text: "Ushbu 3y + 5x + 15 = 0 tenglama bilan berilgan to‘g‘ri chiziqning burchak koeffistienti topilsin",
     options: ["-5/3", "-1", "-5", "-3"],
     correctAnswer: 0
   },
   {
-    id: 251,
+    id: 239,
     text: "Agar {xₙ} ketma-ketlik uchun ∃a: ∀ε>0 ∃n₀∈N ∀n>n₀ |xₙ - a| < ε shart bajarilsa, u xolda ...",
     options: ["Ketma-ketlik yaqinlashuvchi", "Ketma-ketlik uzoqlashuvchi", "Yaqinlashuvchi xam , uzoqlashuvchi xam emas", "To‘g‘ri javob yo‘q"],
     correctAnswer: 0
   },
   {
-    id: 252,
+    id: 240,
     text: "lim(n→∞) (1 + 1/n)ⁿ limitni xisoblang:",
     options: ["e", "1", "2", "0"],
     correctAnswer: 0
   },
   {
-    id: 253,
+    id: 241,
     text: "Agar {xₙ} yaqinlashuvchi bo‘lsa, uning limiti …",
     options: ["yagona", "2 ta", "mavjud emas", "Cheksiz"],
     correctAnswer: 0
   },
   {
-    id: 254,
+    id: 242,
     text: "Quyidagi funkstiyalardan qaysi biri toq funkstiya?",
     options: ["y = x³ - x", "y = x²", "y = x³ - 3", "y = x⁴ - 1"],
     correctAnswer: 0
   },
   {
-    id: 255,
+    id: 243,
     text: "Quyidagi nuqtalardan qay biri f(x) = -2x + 5 funkstiyaning grafigiga tegishli?",
     options: ["(2;1)", "(1;2)", "(2;3)", "(0;1)"],
     correctAnswer: 0
   },
   {
-    id: 256,
+    id: 244,
     text: "Quyidagi funkstiyalardan qaysi biri (0; +∞) oraliqda kamayuvchi?",
     options: ["y = -4/x", "y = x + 8", "y = 3 - x", "y = √x / 2"],
     correctAnswer: 0
   },
   {
-    id: 257,
+    id: 245,
     text: "Juft funkstiya uchun quyidagilardan qaysi biri o‘rinli ?",
     options: ["Ordinatalar funkstiya grafigi o‘qiga nisbatan simmetrik", "Faqat o‘sadi", "Faqat kamayadi", "Funkstiya grafigi koordinatalar boshiga nisbatan simmetrik"],
     correctAnswer: 0
   },
   {
-    id: 258,
+    id: 246,
     text: "lim(x→-1) (x² - x + 2) / (x³ + 1) limitni hisoblang:",
-    options: ["-1", "-3", "5", "0"],
+    options: ["∞", "-3", "5", "0"],
     correctAnswer: 0
   },
   {
-    id: 259,
+    id: 247,
     text: "x = x₀ nuqta f(x) funkstiyaning 1-tur uzilish nuqtasi deyiladi, agarda …",
     options: ["f(x₀-0) va f(x₀+0) lar mavjud, f(x₀-0) ≠ f(x₀+0)", "lim f(x) = a", "f(x₀) < f(x)", "f(x₀-0) mavjud emas"],
     correctAnswer: 0
   },
   {
-    id: 261,
+    id: 248,
     text: "Quyidagi tenglamalardan qaysi biri ellipsning kanonik tenglamasi?",
     options: ["x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "x²/a² - y²/b² = -1", "y² = 2px"],
     correctAnswer: 0
   },
   {
-    id: 262,
+    id: 249,
     text: "9x² + 25y² = 225 ellips tenglamasidan fokuslari koordinatasini ko‘rsating.",
     options: ["F₁(-4; 0); F₂(4; 0)", "F₁(-2; 0); F₂(2; 0)", "F₁(-1; 0); F₂(1; 0)", "F₁(-3; 0); F₂(3; 0)"],
     correctAnswer: 0
   },
   {
-    id: 263,
+    id: 250,
     text: "|a|=6, |b|=5 va ular orasidagi burchak 30° ekanligi ma’lum bo‘lsa ularning vektor ko‘paytmasini modulini aniqlang.",
     options: ["15", "5", "10", "12"],
     correctAnswer: 0
   },
   {
-    id: 264,
+    id: 251,
     text: "Matrisani matrisaga ko‘paytiring:\n\n⎛ 4  5 ⎞   ⎛  1  2 ⎞\n⎜      ⎟ · ⎜       ⎟\n⎝ -1 11⎠   ⎝ -2  3 ⎠",
-    options: ["Matrisalarni ko‘paytirib bo‘lmaydi", "⎛ -6  23 ⎞\n⎝ -23 31 ⎠", "⎛ -1  11 ⎞\n⎝ 4   5 ⎠", "⎛ 3   2 ⎞\n⎝ -3  3 ⎠"],
+    options: ["⎛ -6  23 ⎞\n⎝ -23 31 ⎠", "(-4 23)\n(1 2)", "(-1 11)\n(4 5)", "(3 2)\n(-3 3)"],
     correctAnswer: 0
   },
   {
-    id: 265,
+    id: 252,
     text: "a(8;6) vektor b va c vektorlarga yoyilgan. Agar a = μb + λc, c(10;-3) va b(-2;1) bo‘lsa, μ·λ ning qiymatini aniqlang.",
     options: ["100", "120", "115", "110"],
     correctAnswer: 0
   },
   {
-    id: 266,
+    id: 253,
     text: "m x n matrisa deb",
     options: ["m ta satr n ta ustundan iborat sonlar jadvaliga aytiladi.", "m ta ustun n ta satrdan iborat sonlar jadvaliga aytiladi.", "m ta satr n ta ustundan iborat sonlar ko‘paytmasiga aytiladi", "m ta satr n ta ustundan iborat sonlar ko‘paytmalarining yig‘indisiga aytiladi"],
     correctAnswer: 0
   },
   {
-    id: 267,
+    id: 254,
     text: "Agar determinantning ikkita satri elementlari bir xil bo‘lsa uning qiymati :",
     options: ["nolga teng bo‘ladi", "manfiy bo‘ladi", "musbat bo‘ladi", "noldan farqli bo‘ladi."],
     correctAnswer: 0
   },
   {
-    id: 268,
+    id: 255,
     text: "Agar determinantning biror satri (ustuni)ning elementlarni biror songa ko‘paytirib boshqa bir satr (ustun)ning mos elementlariga qo‘shilsa, determinantning qiymati",
     options: ["o‘zgarmaydi", "nolga teng bo‘ladi", "ishorasiga o‘zgaradi", "o‘zgaradi."],
     correctAnswer: 0
   },
   {
-    id: 269,
+    id: 256,
     text: "a = i + 2j - k, b = 3i - j + 2k vektorlar orasidagi burchak kosinusini toping.",
     options: ["cosφ = -1/(2√21)", "cosφ = 1", "cosφ = 1/(2√21)", "cosφ = √2/3"],
     correctAnswer: 0
   },
   {
-    id: 270,
+    id: 257,
     text: "x/2 - y/4 = 5 to'ri chiziqning burchak koeffisentini aniqlang.",
     options: ["k = 2", "k = 3", "k = 3/2", "k = -3/2"],
     correctAnswer: 0
   },
   {
-    id: 271,
+    id: 258,
     text: "Koordinata boshidan M₁(1; 4) va M₂(-1; -2) nuqtalardan o‘tuvchi to'ri chiziqqacha bo‘lgan masofa topilsin.",
     options: ["1/√10", "√2/10", "-1/10", "1/10"],
     correctAnswer: 0
   },
   {
-    id: 272,
+    id: 259,
     text: "Agar |a|=7, |b|=17 va |a-b|=3√35 bo‘lsa, |a+b| ning qiymatini toping.",
     options: ["19", "20", "8√3", "9√2"],
     correctAnswer: 0
   },
   {
-    id: 273,
+    id: 260,
     text: "Uchlari A (1;1), B(-2;3) va C (-1;-2) nuqtalarda bo‘lgan uchburchakning A va B burchaklarini toping.",
     options: ["45°; 90°", "60°; 30°", "90°; 45°", "30°; 90°"],
     correctAnswer: 0
   },
   {
-    id: 274,
+    id: 261,
     text: "Ushbu determinantni hisoblang:\n\n│ 2008 0 2007 │\n│ 2009 2  551 │\n│ 2007 0 2006 │",
     options: ["2", "2008", "-2008", "-2"],
     correctAnswer: 0
   },
   {
-    id: 275,
+    id: 262,
     text: "Kramer formulasida Δ ≠ 0 bo‘lsa, tenglamalar sistemasi",
     options: ["yagona yechimga ega", "yechimga ega emas", "cheksiz ko‘p yechimga ega", "ikkita yechimga ega."],
     correctAnswer: 0
   },
   {
-    id: 276,
+    id: 263,
     text: "Tekislikdagi ixtiyoriy nuqtasidan berilgan ikki nuqtasigacha bo‘lgan masofalar ayirmasining moduli o‘garmas bo‘lgan nuqtalarning geometrik o‘rni… dan iborat bo‘ladi.",
     options: ["giperbola", "Aylana", "Ellips", "Sfera"],
     correctAnswer: 0
   },
   {
-    id: 277,
+    id: 264,
     text: "Ushbu 3x + √3y + 1 = 0 tenglama bilan berilgan to‘g‘ri chiziqning burchak koeffistienti topilsin.",
     options: ["-√3", "√3", "-5", "3"],
     correctAnswer: 0
   },
   {
-    id: 279,
+    id: 265,
     text: "lim(n→∞) (2n² - 1) / (3 - n²) limitni xisoblang:",
     options: ["-2", "2", "2/3", "3/2"],
     correctAnswer: 0
   },
   {
-    id: 280,
+    id: 266,
     text: "Toq funkstiyalarga nisbatan quyidagilardan qaysi biri o‘rinli ?",
     options: ["Funkstiya grafigi koordinatalar boshiga nisbatan simmetrik", "Faqat o‘sadi", "Ordinatalar funkstiya grafigi o‘qiga nisbatan simmetrik", "Faqat kamayadi"],
     correctAnswer: 0
   },
   {
-    id: 281,
+    id: 267,
     text: "lim(x→0) x / sin(3x) limitni hisoblang:",
     options: ["1/3", "1", "-1/3", "-1"],
     correctAnswer: 0
   },
   {
-    id: 282,
+    id: 268,
     text: "y = (3x) / (x² - 1) funkstiya qaysi nuqtada uzilishga ega ?",
     options: ["x = ±1", "x = 0", "x = 1", "x = -1"],
     correctAnswer: 0
   },
   {
-    id: 283,
+    id: 269,
     text: "y = ln(x - 1), y' topilsin:",
     options: ["1/(x - 1)", "1", "x", "x - 1"],
     correctAnswer: 0
   },
   {
-    id: 284,
+    id: 270,
     text: "Tekislikdagi, ixtiyoriy nuqtasidan berilgan ikki nuqtasigacha bo‘lgan masofalarning yigindisi o‘zgarmas bo‘lgan nuqtalarning geometrik o'rni… dan iborat bo‘ladi.",
     options: ["ellips", "Aylana", "To'gri chiziq", "Tekislik"],
     correctAnswer: 0
   },
   {
-    id: 285,
+    id: 271,
     text: "Agar bir jinsli chiziqli tеnglamalar sistеmasining kоeffitsiеntlaridan tuzilgan matritsaning dеtеrminanti nоlga tеng bo`lsa, bu sistеma nеchta еchimga ega?",
     options: ["chеksiz ko`p", "1", "yechimi yo`q", "2"],
     correctAnswer: 0
   },
   {
-    id: 286,
+    id: 272,
     text: "Quyidagi matritsalardan qaysi birining dеtеrminanti nоldan farqli?",
     options: ["birlik matritsa", "ikkita bir хil satrlarga ega bo`lgan matritsa", "prоpоrtsiоnal ustunlarga ega bo`lgan matritsa", "bitta ustuni nоllalardan ibоrat matritsa"],
     correctAnswer: 0
   },
   {
-    id: 287,
+    id: 273,
     text: "Uchburchakning uchlari (1;2); (3;4) va (5;-1) nuqtalarda joylashgan. Shu ushburchak medianalarining kesishgan nuqtasi koordinatalarini toping.",
     options: ["(3; 5/3)", "(2;3)", "(3;2)", "(3;3)"],
     correctAnswer: 0
   },
   {
-    id: 288,
+    id: 274,
     text: "Quyidagi mulohazalardan qaysi biri to‘g‘ri?",
-    options: ["Ikkita matrisalar yig‘indisining determinanti, ularning determinantlari yig‘indisiga tengdir.", "m x n tartibli matrisaga m x n tartibli matrisani ko‘paytirsa, m x n tartibli matrisa hosil bo‘ladi.", "Istalgan matrisa uchun teskari matrisani topish mumkin", "Determinantning istalgan satri elementlarini o‘zining algebraik to‘ldiruvchilarga ko‘paytmalarining yig‘indisi determinantning qiymatiga tengdir"],
-    correctAnswer: 3
+    options: ["Determinantning istalgan satri elementlarini o‘zining algebraik to‘ldiruvchilarga ko‘paytmalarining yig‘indisi determinantning qiymatiga tengdir", "m x n tartibli matrisaga m x n tartibli matrisani ko‘paytirsa, m x n tartibli matrisa hosil bo‘ladi.", "Istalgan matrisa uchun teskari matrisani topish mumkin", "Ikkita matrisalar yig‘indisining determinanti, ularning determinantlari yig‘indisiga tengdir."],
+    correctAnswer: 0
   },
   {
-    id: 289,
+    id: 275,
     text: "a va b kollinear vektorlar berilgan. |a|=|b|=3 bo‘lsa, (a+b) va (a-b) qanday burchak tashkil etadi.",
     options: ["90°", "30°", "45°", "60°"],
     correctAnswer: 0
   },
   {
-    id: 290,
+    id: 276,
     text: "lim(n→∞) (n² - n) / (1 - n) limitni xisoblang:",
     options: ["∞", "½", "0", "2"],
     correctAnswer: 0
   },
   {
-    id: 291,
+    id: 277,
     text: "x = t, y = t, z = 3t - 5 to‘g‘ri chiziq va x + y - 4 = 0 tеkislik kеsishgan nuqtasining kооrdinatalarini tоping.",
     options: ["(2;2;1)", "(0;0;5)", "(1;1;3)", "(0;0;5)"],
     correctAnswer: 0
   },
   {
-    id: 292,
+    id: 278,
     text: "Kооrdinatalar bоshidan 2x - y - 2z - 9 = 0 tеkislikkacha bo‘lgan masоfani tоping",
     options: ["3", "4", "2", "1"],
     correctAnswer: 0
   },
   {
-    id: 293,
+    id: 279,
     text: "Ordinata o‘qidagi b = -3 nuqtadan o‘tuvchi va Ox o‘qining musbat yo‘nalishi bilan α = π/6 burchak tashkil qiluvchi to‘g‘ri chiziq tenglamasini ko‘rsating.",
     options: ["x - √3y - 3√3 = 0", "3x - 3y - 2 = 0", "y = (√3/3)x + 3", "√3y + x - 3 = 0"],
     correctAnswer: 0
   },
   {
-    id: 294,
+    id: 280,
     text: "A(2; -1) nuqtadan o‘tuvchi va y = -0.5x + 5 to‘g‘ri chiziqqa per-pendikulyar bo‘lgan to‘g‘ri chiziq tenglamasi tuzilsin.",
     options: ["y = 2x - 5", "y = -2x + 7", "y = 2x + 7", "y = 2x - 7"],
     correctAnswer: 0
   },
   {
-    id: 295,
+    id: 281,
     text: "2x - 3y - z + 12 = 0 va 5x + y + Cz - 15 = 0 tekisliklar C ning qanday qiymatida perpendikulyar bo‘ladi.",
     options: ["7", "5", "9", "11"],
     correctAnswer: 0
   },
   {
-    id: 296,
+    id: 282,
     text: "(x-2)/3 = (y+1)/2 = (z-5)/-1 to‘g‘ri chiziq va Ax + 2y + 7z + 5 = 0 tekislik A ning qanday qiymatida parallel bo‘ladi?",
     options: ["1", "-2", "-1", "0"],
     correctAnswer: 0
   },
   {
-    id: 297,
+    id: 283,
     text: "Funksiyaning aniqlanish sохasini tоping: y = arccos((3x + 4)/5)",
     options: ["[-3;1/3]", "(0;+∞)", "[0;+∞]", "(-1;2)"],
     correctAnswer: 0
   },
   {
-    id: 298,
+    id: 284,
     text: "Δ = │ 3  2  1 │\n    │ 4  0  5 │\n    │ 1  6 -3 │ determinant a₂₁ elementining M₂₁ minori topilsin.",
     options: ["-12", "5", "-8", "10"],
     correctAnswer: 0
   },
   {
-    id: 299,
+    id: 285,
     text: "y = √(16 - x²) funksiyaning qiymatlar sohasini toping.",
     options: ["[0, 4]", "[0, 2]", "[-4, 0]", "[-4, 4]"],
     correctAnswer: 0
   },
   {
-    id: 300,
+    id: 286,
     text: "M (2;1) nuqtadan 3x + 4y + 5 = 0 to’g’ri chiziqqacha bo’lgan masofa topilsin.",
     options: ["3", "1", "2", "4"],
+    correctAnswer: 0
+  },
+  {
+    id: 287,
+    text: "To‘g‘ri chiziqning kеsmalar buyicha tеnglamasini kursating",
+    options: ["x/a + y/b = 1", "Ax+By+C=0", "y=kx+b", "xcosα+ysinα-ρ=0"],
+    correctAnswer: 0
+  },
+  {
+    id: 288,
+    text: "To‘g‘ri chiziqning burchak kоeffitsiеnti tеnglamasini kursating",
+    options: ["y=kx+b", "Ax+By+C=0", "x/a + y/b = 1", "xcosα+ysinα-ρ=0"],
+    correctAnswer: 0
+  },
+  {
+    id: 289,
+    text: "A(2; -1) nuqtadan o‘tuvchi va y = -0.5x + 5 to‘g‘ri chiziqqa pеr-pеndikulyar bo‘lgan to‘g‘ri chiziq tеnglamasi tuzilsin.",
+    options: ["y = 2x - 5", "y = 2x - 7", "y = 2x + 7", "y = -2x + 7"],
+    correctAnswer: 0
+  },
+  {
+    id: 290,
+    text: "Agar 6x + 3y - 2 = 0 to‘g‘ri chiziq bеrilgan bo‘lsa, unga perpendikular bo‘lgan to‘g‘ri chiziqning burchak kоeffitsiеntini tоping.",
+    options: ["1/2", "-2", "2", "-1/2"],
+    correctAnswer: 0
+  },
+  {
+    id: 291,
+    text: "x + 4 = 0 va y + 6 = 0 to‘g‘ri chiziqlar оrasidagi burchakni tоping.",
+    options: ["π/2", "π/4", "π/3", "0"],
+    correctAnswer: 0
+  },
+  {
+    id: 292,
+    text: "Nоrmali n = {1; 2; 3} vеktоr bo‘lgan, kооrdinatalar bоshidan o‘tuvchi tеkislik tеnglamasini tuzing.",
+    options: ["x + 2y + 3z = 0", "x/2 + y/3 + z = 0", "x + 2y + 3z = 1", "x/2 + y/2 + z/3 = 1"],
+    correctAnswer: 0
+  },
+  {
+    id: 293,
+    text: "y = cos x / x² funksiya hosilasi topilsin.",
+    options: ["-(x sin x + 2 cos x) / x³", "sin x / 2x", "x sin x + 2 cos x / x³", "-sin x / 2x"],
+    correctAnswer: 0
+  },
+  {
+    id: 294,
+    text: "y = sin² x funksiya hosilasi topilsin.",
+    options: ["sin 2x", "2 cos x", "cos 2x", "2 sin x"],
+    correctAnswer: 0
+  },
+  {
+    id: 295,
+    text: "y = ln(x² + 2x) funksiya hosilasi topilsin.",
+    options: ["2(x+1) / (x² + 2x)", "1 / (x² + 2x)", "x / (x² + 2x)", "2 / (x+1)"],
+    correctAnswer: 0
+  },
+  {
+    id: 296,
+    text: "y = x² · 2ˣ funksiya hosilasi topilsin.",
+    options: ["x · 2ˣ (2 + x ln 2)", "x · 2ˣ", "2x · 2ˣ", "x² · 2ˣ ln 2"],
+    correctAnswer: 0
+  },
+  {
+    id: 297,
+    text: "y = arcsin √(1-4x) funksiya hosilasi topilsin.",
+    options: ["-2 / √(4x - 16x²)", "2 / √(4x - 16x²)", "-1 / √(1-4x)", "1 / √(1-4x)"],
+    correctAnswer: 0
+  },
+  {
+    id: 298,
+    text: "y = 2^(x²) funksiya hosilasi topilsin.",
+    options: ["2x · 2^(x²) · ln 2", "2^(x²) · ln 2", "x² · 2^(x²-1)", "2x · 2^(x²)"],
+    correctAnswer: 0
+  },
+  {
+    id: 299,
+    text: "Δ = │ 3  2  1 │\n    │ 0  5  4 │\n    │ 2 -1  3 │ determinantni a₃₂ elementining algebraik to'ldiruvchisi topilsin.",
+    options: ["-12", "12", "-8", "8"],
+    correctAnswer: 0
+  },
+  {
+    id: 300,
+    text: "Matrisalar berilgan, 3A-B ni toping:\n\nA=(2 -1 4; 3 1 -2; 1 2 -3)\nB=(1 -2 4; 3 1 3; 1 -2 0)",
+    options: ["(5 -1 8; 6 2 -9; 2 8 -9)", "(5 -1 8; 0 0 -9; 2 8 -9)", "(1 1 0; 0 0 -5; 0 4 -3)", "(5 -1 8; 6 2 9; 2 8 9)"],
+    correctAnswer: 0
+  },
+  {
+    id: 301,
+    text: "Matritsali tenglama A · X = B yechimi:",
+    options: ["X = A⁻¹B", "X = BA⁻¹", "X = AB", "X = B/A"],
+    correctAnswer: 0
+  },
+  {
+    id: 302,
+    text: "A(0,0,1), B(3,2,1), C(4,6,5), D(1,6,3). AB + CD vektorni toping.",
+    options: ["(0, 2, -2)", "(5, 14, 10)", "(4, 7, -2)", "(1, 1, 1)"],
+    correctAnswer: 0
+  },
+  {
+    id: 303,
+    text: "A(6,4,2), B(8,-2,5). AB vektor uzunligi:",
+    options: ["7", "49", "√49", "5"],
+    correctAnswer: 0
+  },
+  {
+    id: 304,
+    text: "|a|=2, |b|=3, burchak 60°. Skalyar ko'paytma:",
+    options: ["3", "6", "1", "2"],
+    correctAnswer: 0
+  },
+  {
+    id: 305,
+    text: "a=(2,3,-1), b=(1,-5,m). Perpendikulyarlik sharti m:",
+    options: ["-13", "13", "0", "1"],
+    correctAnswer: 0
+  },
+  {
+    id: 306,
+    text: "a=2i-j, b=3k. Vektor ko'paytma a × b:",
+    options: ["-3i-6j", "3i+6j", "6k", "0"],
+    correctAnswer: 0
+  },
+  {
+    id: 307,
+    text: "Komplanarlik sharti:",
+    options: ["Aralash ko'paytma nol", "Skalyar ko'paytma nol", "Vektor ko'paytma nol", "Modullar teng"],
+    correctAnswer: 0
+  },
+  {
+    id: 308,
+    text: "y = kx + b ko'rinishidagi to'g'ri chiziq:",
+    options: ["Burchak koeffitsiyentli", "Umumiy", "Kesmalardagi", "Normal"],
+    correctAnswer: 0
+  },
+  {
+    id: 309,
+    text: "x/a + y/b = 1 ko'rinishidagi to'g'ri chiziq:",
+    options: ["Kesmalardagi", "Umumiy", "Normal", "Kanonik"],
+    correctAnswer: 0
+  },
+  {
+    id: 310,
+    text: "Ax + By + C = 0 ko'rinishidagi to'g'ri chiziq:",
+    options: ["Umumiy", "Normal", "Kanonik", "Parametrik"],
+    correctAnswer: 0
+  },
+  {
+    id: 311,
+    text: "x cos α + y sin α - p = 0 ko'rinishidagi to'g'ri chiziq:",
+    options: ["Normal", "Umumiy", "Kanonik", "Kesmalardagi"],
+    correctAnswer: 0
+  },
+  {
+    id: 312,
+    text: "Aylana tenglamasi (markazi a, b):",
+    options: ["(x-a)² + (y-b)² = R²", "x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "y² = 2px"],
+    correctAnswer: 0
+  },
+  {
+    id: 313,
+    text: "Ellips tenglamasi:",
+    options: ["x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "y² = 2px", "x² + y² = R²"],
+    correctAnswer: 0
+  },
+  {
+    id: 314,
+    text: "Giperbola tenglamasi:",
+    options: ["x²/a² - y²/b² = 1", "x²/a² + y²/b² = 1", "y² = 2px", "x² + y² = R²"],
+    correctAnswer: 0
+  },
+  {
+    id: 315,
+    text: "Parabola tenglamasi:",
+    options: ["y² = 2px", "x²/a² + y²/b² = 1", "x²/a² - y²/b² = 1", "x² + y² = R²"],
+    correctAnswer: 0
+  },
+  {
+    id: 316,
+    text: "lim(n→∞) (n²+1)/(n²-n-1):",
+    options: ["1", "0", "∞", "-1"],
+    correctAnswer: 0
+  },
+  {
+    id: 317,
+    text: "lim(x→1) (x-1)/(√x - 1):",
+    options: ["2", "1", "0", "0.5"],
+    correctAnswer: 0
+  },
+  {
+    id: 318,
+    text: "Determinant │ sin a  cos a │\n            │ -cos a sin a │:",
+    options: ["1", "0", "sin 2a", "cos 2a"],
+    correctAnswer: 0
+  },
+  {
+    id: 319,
+    text: "Determinant │ -x 1 x │\n            │ 0 -x -1 │\n            │ x 1 -x │:",
+    options: ["2x³", "-2x³", "0", "x²"],
+    correctAnswer: 0
+  },
+  {
+    id: 320,
+    text: "lim(x→a) (√x - √a) / (x - a):",
+    options: ["1 / (2√a)", "2√a", "1", "0"],
+    correctAnswer: 0
+  },
+  {
+    id: 321,
+    text: "lim(x→∞) (3x-1) / (x²+1):",
+    options: ["0", "3", "∞", "1"],
+    correctAnswer: 0
+  },
+  {
+    id: 322,
+    text: "lim(x→-2) (3x+6) / (x³+8):",
+    options: ["1/4", "3/4", "0", "1/12"],
+    correctAnswer: 0
+  },
+  {
+    id: 323,
+    text: "lim(x→1) (1/(x-1) - 2/(x²-1)):",
+    options: ["1/2", "0", "1", "∞"],
+    correctAnswer: 0
+  },
+  {
+    id: 324,
+    text: "y = x + 2√x hosilasi:",
+    options: ["1 + 1/√x", "1 + √x", "x + 1", "2√x"],
+    correctAnswer: 0
+  },
+  {
+    id: 325,
+    text: "y = sin √x hosilasi:",
+    options: ["cos √x / (2√x)", "cos √x", "-cos √x", "sin √x"],
+    correctAnswer: 0
+  },
+  {
+    id: 326,
+    text: "y = a^(sin x) hosilasi:",
+    options: ["a^(sin x) · cos x · ln a", "a^(sin x) · ln a", "sin x · a^(sin x-1)", "cos x · a^(sin x)"],
+    correctAnswer: 0
+  },
+  {
+    id: 327,
+    text: "x² + y² + x = 0 radiusi:",
+    options: ["1/2", "1", "1/4", "2"],
+    correctAnswer: 0
+  },
+  {
+    id: 328,
+    text: "x² + y² + 4y = 0 markazi:",
+    options: ["(0, -2)", "(0, 2)", "(2, 0)", "(-2, 0)"],
+    correctAnswer: 0
+  },
+  {
+    id: 329,
+    text: "y = xⁿ differensiali:",
+    options: ["dy = n xⁿ⁻¹ dx", "dy = xⁿ dx", "dy = n xⁿ dx", "dy = dx"],
+    correctAnswer: 0
+  },
+  {
+    id: 330,
+    text: "x-2y+3z=4; 7x-4y-z=6; -x+2y-3z=-4 sistema yechimi:",
+    options: ["(1, 0, 1)", "(0, 0, 0)", "(1, 1, 1)", "yechim yo'q"],
+    correctAnswer: 0
+  },
+  {
+    id: 331,
+    text: "x²+y²-2y=0 radiusi:",
+    options: ["1", "2", "0", "0.5"],
+    correctAnswer: 0
+  },
+  {
+    id: 332,
+    text: "y = √(x+1) o'sish oralig'i:",
+    options: ["x ≥ -1", "x > 0", "R", "x < -1"],
+    correctAnswer: 0
+  },
+  {
+    id: 333,
+    text: "│ 2 -1 2 │\n│ 2 0 4 │\n│ 0 1 1 │ hisoblang:",
+    options: ["-2", "2", "0", "1"],
+    correctAnswer: 0
+  },
+  {
+    id: 334,
+    text: "│ x 4 │\n│ -2x² 2x │ hisoblang:",
+    options: ["10x²", "2x²", "-6x²", "0"],
     correctAnswer: 0
   },
   {
@@ -1761,7 +2049,6 @@ export const allQuestions: Question[] = questionsList;
 export const getQuestionsByVariant = (variant: number): Question[] => {
   const questionsPerVariant = 30; // 30 tests per variant
   const start = (variant - 1) * questionsPerVariant;
-  // Handle edge case for last variant if less than 30
   return allQuestions.slice(start, start + questionsPerVariant);
 };
 
