@@ -1194,7 +1194,7 @@ const questionsList: Question[] = [
     id: 199,
     text: "x va y vektorlarning uzunliklari 11 va 23 ga, bu vektorlar ayirmasining uzunligi 30 ga teng. Shu vektorlar yig‘indisining uzunligini toping.",
     options: ["20", "34", "64", "42"],
-    correctAnswer: 3
+    correctAnswer: 1
   },
   {
     id: 200,
@@ -1559,7 +1559,7 @@ const questionsList: Question[] = [
   {
     id: 260,
     text: "Uchlari A (1;1), B(-2;3) va C (-1;-2) nuqtalarda bo‘lgan uchburchakning A va B burchaklarini toping.",
-    options: ["45°; 90°", "60°; 30°", "90°; 45°", "30°; 90°"],
+    options: ["90°; 45°", "60°; 30°", "45°; 90°", "30°; 90°"],
     correctAnswer: 0
   },
   {
