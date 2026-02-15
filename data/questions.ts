@@ -1511,7 +1511,7 @@ const questionsList: Question[] = [
   {
     id: 252,
     text: "a(8;6) vektor b va c vektorlarga yoyilgan. Agar a = μb + λc, c(10;-3) va b(-2;1) bo‘lsa, μ·λ ning qiymatini aniqlang.",
-    options: ["100", "120", "115", "110"],
+    options: ["105", "120", "115", "110"],
     correctAnswer: 0
   },
   {
