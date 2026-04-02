@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { getQuestionsByVariant, totalVariants } from './data/questions';
-import { QuizState } from './types';
+import { getQuestionsByVariant, totalVariants, questionsList } from './data/questions';
+import { QuizState, Question } from './types';
+import { Chat } from './components/Chat';
 import { 
   CheckCircle2, 
   XCircle, 
@@ -11,7 +12,9 @@ import {
   ChevronRight, 
   ArrowLeft,
   MessageCircle,
-  HelpCircle
+  HelpCircle,
+  Share2,
+  Copy
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -26,6 +29,36 @@ const App: React.FC = () => {
 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Check URL for variant parameter on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const variantParam = params.get('variant');
+    if (variantParam) {
+      const variantNum = parseInt(variantParam, 10);
+      if (!isNaN(variantNum) && variantNum > 0 && variantNum <= totalVariants) {
+        selectVariant(variantNum);
+      }
+    }
+  }, []);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const copyShareLink = (e: React.MouseEvent, variant?: number) => {
+    e.stopPropagation();
+    const baseUrl = window.location.origin + window.location.pathname;
+    const shareUrl = variant ? `${baseUrl}?variant=${variant}` : baseUrl;
+    
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      showToast(variant ? `Variant ${variant} havolasi nusxalandi!` : "Ilova havolasi nusxalandi!");
+    }).catch(() => {
+      showToast("Nusxalashda xatolik yuz berdi");
+    });
+  };
 
   // Helper to shuffle array (Fisher-Yates)
   const shuffleArray = (array: number[]) => {
@@ -116,18 +149,32 @@ const App: React.FC = () => {
     });
   };
 
+  const handleQuestionsLoaded = (newQuestions: Question[]) => {
+    // This will be handled by the page reload in Chat.tsx
+    // but we can also update state if needed
+    console.log('New questions loaded:', newQuestions.length);
+  };
+
   // --- RENDERING VIEWS ---
 
   if (!state.isStarted) {
     return (
       <div className="min-h-screen bg-[#F0F2F5] p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
-          <header className="mb-10 text-center">
+          <header className="mb-10 text-center relative">
+            <div className="absolute right-0 top-0">
+              <button 
+                onClick={(e) => copyShareLink(e)}
+                className="flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-xl border border-blue-100 shadow-sm hover:bg-blue-50 transition-colors font-medium text-sm"
+              >
+                <Share2 className="w-4 h-4" /> Ulashish
+              </button>
+            </div>
             <div className="inline-flex p-3 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-200">
               <Trophy className="text-white w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold text-slate-900 mb-2">Matematika</h1>
-            <p className="text-slate-500">Amaliy matematika va matematik fizika (340 ta savol)</p>
+            <p className="text-slate-500">Amaliy matematika va matematik fizika ({questionsList.length} ta savol)</p>
           </header>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -137,8 +184,15 @@ const App: React.FC = () => {
               <button
                 key={v}
                 onClick={() => selectVariant(v)}
-                className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all text-left group"
+                className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all text-left group relative"
               >
+                <div 
+                  className="absolute top-4 right-4 p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                  onClick={(e) => copyShareLink(e, v)}
+                  title="Ushbu variantni ulashish"
+                >
+                  <Share2 className="w-4 h-4" />
+                </div>
                 <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-50 transition-colors">
                   <LayoutGrid className="w-5 h-5 text-slate-400 group-hover:text-blue-600" />
                 </div>
@@ -148,6 +202,14 @@ const App: React.FC = () => {
             )})}
           </div>
         </div>
+        <Chat onQuestionsLoaded={handleQuestionsLoaded} />
+        
+        {toastMessage && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 animate-in fade-in slide-in-from-bottom-4">
+            <CheckCircle2 className="w-5 h-5 text-green-400" />
+            <span className="font-medium">{toastMessage}</span>
+          </div>
+        )}
       </div>
     );
   }
@@ -183,6 +245,12 @@ const App: React.FC = () => {
               <RotateCcw className="w-5 h-5" /> Qayta urinish
             </button>
             <button 
+              onClick={(e) => copyShareLink(e, state.selectedVariant!)}
+              className="w-full py-4 bg-green-50 text-green-600 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-green-100 transition-all"
+            >
+              <Share2 className="w-5 h-5" /> Natijani yoki variantni ulashish
+            </button>
+            <button 
               onClick={resetToHome}
               className="w-full py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
             >
@@ -190,6 +258,12 @@ const App: React.FC = () => {
             </button>
           </div>
         </div>
+        {toastMessage && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 animate-in fade-in slide-in-from-bottom-4">
+            <CheckCircle2 className="w-5 h-5 text-green-400" />
+            <span className="font-medium">{toastMessage}</span>
+          </div>
+        )}
       </div>
     );
   }
@@ -214,9 +288,13 @@ const App: React.FC = () => {
             <h2 className="font-bold text-slate-900">Variant {state.selectedVariant}</h2>
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Savol {state.currentQuestionIndex + 1}/{currentQuestions.length}</p>
           </div>
-          <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
-            <HelpCircle className="w-5 h-5 text-blue-600" />
-          </div>
+          <button 
+            onClick={(e) => copyShareLink(e, state.selectedVariant!)}
+            className="w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors"
+            title="Ushbu variantni ulashish"
+          >
+            <Share2 className="w-5 h-5 text-blue-600" />
+          </button>
         </div>
       </nav>
 
@@ -304,6 +382,8 @@ const App: React.FC = () => {
           </div>
         </div>
       </main>
+
+      <Chat onQuestionsLoaded={handleQuestionsLoaded} />
 
       {/* Optional Manual Footer */}
       {isAnswered && (
