@@ -1,7 +1,7 @@
 
 import { Question } from '../types';
 
-const questionsList: Question[] = [
+export const questionsList: Question[] = [
   {
     id: 1,
     text: "Determinantning a₁₁ elementining algebraik to'ldiruvchisini toping:\n\n│ a₁₁  a₁₂ │\n│ a₂₁  a₂₂ │",
@@ -2044,12 +2044,12 @@ const questionsList: Question[] = [
   }
 ];
 
-export const allQuestions: Question[] = questionsList;
+export const variantSize = 30;
+
+export const totalVariants = Math.ceil(questionsList.length / variantSize);
 
 export const getQuestionsByVariant = (variant: number): Question[] => {
-  const questionsPerVariant = 30; // 30 tests per variant
-  const start = (variant - 1) * questionsPerVariant;
-  return allQuestions.slice(start, start + questionsPerVariant);
+  const start = (variant - 1) * variantSize;
+  const end = start + variantSize;
+  return questionsList.slice(start, end);
 };
-
-export const totalVariants = Math.ceil(allQuestions.length / 30);
