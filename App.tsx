@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { getQuestionsByVariant, totalVariants, questionsList } from './data/questions';
+import { getQuestionsByVariant, totalVariantsForSubject, subjects } from './data/questions';
 import { QuizState, Question } from './types';
 import { Chat } from './components/Chat';
 import { 
@@ -19,6 +19,7 @@ import {
 
 const App: React.FC = () => {
   const [state, setState] = useState<QuizState>({
+    selectedSubject: null,
     selectedVariant: null,
     currentQuestionIndex: 0,
     score: 0,
@@ -34,11 +35,13 @@ const App: React.FC = () => {
   // Check URL for variant parameter on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const subjectParam = params.get('subject');
     const variantParam = params.get('variant');
-    if (variantParam) {
+    if (subjectParam && variantParam) {
       const variantNum = parseInt(variantParam, 10);
-      if (!isNaN(variantNum) && variantNum > 0 && variantNum <= totalVariants) {
-        selectVariant(variantNum);
+      const subjectExists = subjects.some(s => s.id === subjectParam);
+      if (subjectExists && !isNaN(variantNum) && variantNum > 0) {
+        selectVariant(subjectParam, variantNum);
       }
     }
   }, []);
@@ -48,10 +51,12 @@ const App: React.FC = () => {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const copyShareLink = (e: React.MouseEvent, variant?: number) => {
+  const copyShareLink = (e: React.MouseEvent, subjectId?: string, variant?: number) => {
     e.stopPropagation();
     const baseUrl = window.location.origin + window.location.pathname;
-    const shareUrl = variant ? `${baseUrl}?variant=${variant}` : baseUrl;
+    let shareUrl = baseUrl;
+    if (subjectId && variant) shareUrl = `${baseUrl}?subject=${subjectId}&variant=${variant}`;
+    else if (subjectId) shareUrl = `${baseUrl}?subject=${subjectId}`;
     
     navigator.clipboard.writeText(shareUrl).then(() => {
       showToast(variant ? `Variant ${variant} havolasi nusxalandi!` : "Ilova havolasi nusxalandi!");
@@ -73,9 +78,10 @@ const App: React.FC = () => {
   // State to hold shuffled order of indices [0, 1, 2, 3]
   const [shuffledIndices, setShuffledIndices] = useState<number[]>([0, 1, 2, 3]);
 
-  const selectVariant = (variant: number) => {
-    const questions = getQuestionsByVariant(variant);
+  const selectVariant = (subjectId: string, variant: number) => {
+    const questions = getQuestionsByVariant(subjectId, variant);
     setState({
+      selectedSubject: subjectId,
       selectedVariant: variant,
       currentQuestionIndex: 0,
       score: 0,
@@ -87,7 +93,7 @@ const App: React.FC = () => {
     setSelectedOption(null);
   };
 
-  const currentQuestions = state.selectedVariant ? getQuestionsByVariant(state.selectedVariant) : [];
+  const currentQuestions = state.selectedSubject && state.selectedVariant ? getQuestionsByVariant(state.selectedSubject, state.selectedVariant) : [];
   const currentQuestion = currentQuestions[state.currentQuestionIndex];
 
   // Shuffle options whenever the question changes
@@ -121,8 +127,8 @@ const App: React.FC = () => {
 
   const handleNext = () => {
     setState(prev => {
-      if (prev.showResults || !prev.isStarted || !prev.selectedVariant) return prev;
-      const questions = getQuestionsByVariant(prev.selectedVariant);
+      if (prev.showResults || !prev.isStarted || !prev.selectedVariant || !prev.selectedSubject) return prev;
+      const questions = getQuestionsByVariant(prev.selectedSubject, prev.selectedVariant);
       
       if (prev.currentQuestionIndex + 1 < questions.length) {
         return {
@@ -140,6 +146,7 @@ const App: React.FC = () => {
 
   const resetToHome = () => {
     setState({
+      selectedSubject: null,
       selectedVariant: null,
       currentQuestionIndex: 0,
       score: 0,
@@ -159,8 +166,8 @@ const App: React.FC = () => {
 
   if (!state.isStarted) {
     return (
-      <div className="min-h-screen bg-[#F0F2F5] p-4 md:p-8">
-        <div className="max-w-4xl mx-auto">
+      <div className="min-h-screen bg-[#F0F2F5] p-4 md:p-8 pb-32">
+        <div className="max-w-4xl mx-auto space-y-12">
           <header className="mb-10 text-center relative">
             <div className="absolute right-0 top-0">
               <button 
@@ -173,34 +180,60 @@ const App: React.FC = () => {
             <div className="inline-flex p-3 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-200">
               <Trophy className="text-white w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Matematika</h1>
-            <p className="text-slate-500">Amaliy matematika va matematik fizika ({questionsList.length} ta savol)</p>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Test Platformasi</h1>
+            <p className="text-slate-500">Istalgan fandan testlarni ishlang</p>
           </header>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {Array.from({ length: totalVariants }, (_, i) => i + 1).map(v => {
-              const questionCount = getQuestionsByVariant(v).length;
-              return (
-              <button
-                key={v}
-                onClick={() => selectVariant(v)}
-                className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all text-left group relative"
-              >
-                <div 
-                  className="absolute top-4 right-4 p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                  onClick={(e) => copyShareLink(e, v)}
-                  title="Ushbu variantni ulashish"
-                >
-                  <Share2 className="w-4 h-4" />
+          {subjects.map((subject) => {
+            const variantCount = totalVariantsForSubject(subject.id);
+            if (variantCount === 0) return null;
+            
+            return (
+              <div key={subject.id} className="space-y-6">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                  <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-3">
+                    <span className="w-4 h-8 bg-blue-600 rounded-sm inline-block"></span>
+                    {subject.name}
+                  </h2>
+                  <span className="bg-blue-100 text-blue-700 font-medium px-3 py-1 rounded-full text-sm">
+                    {subject.questions.length} test
+                  </span>
                 </div>
-                <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-50 transition-colors">
-                  <LayoutGrid className="w-5 h-5 text-slate-400 group-hover:text-blue-600" />
+                
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {Array.from({ length: variantCount }, (_, i) => i + 1).map(v => {
+                    const questionCount = getQuestionsByVariant(subject.id, v).length;
+                    return (
+                      <button
+                        key={v}
+                        onClick={() => selectVariant(subject.id, v)}
+                        className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all text-left group relative"
+                      >
+                        <div 
+                          className="absolute top-4 right-4 p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                          onClick={(e) => copyShareLink(e, subject.id, v)}
+                          title="Ushbu variantni ulashish"
+                        >
+                          <Share2 className="w-4 h-4" />
+                        </div>
+                        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-50 transition-colors">
+                          <LayoutGrid className="w-5 h-5 text-slate-400 group-hover:text-blue-600" />
+                        </div>
+                        <h3 className="font-bold text-slate-800">Variant {v}</h3>
+                        <p className="text-xs text-slate-400 mt-1">{questionCount} ta savol</p>
+                      </button>
+                    );
+                  })}
                 </div>
-                <h3 className="font-bold text-slate-800">Variant {v}</h3>
-                <p className="text-xs text-slate-400 mt-1">{questionCount} ta savol</p>
-              </button>
-            )})}
-          </div>
+              </div>
+            );
+          })}
+          
+          {subjects.length === 0 && (
+            <div className="text-center py-20 text-slate-500">
+              Hali hech qanday fan yoki test mavjud emas.
+            </div>
+          )}
         </div>
         <Chat onQuestionsLoaded={handleQuestionsLoaded} />
         
@@ -224,7 +257,9 @@ const App: React.FC = () => {
             <Trophy className="w-16 h-16 text-yellow-500" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 mb-2">Natija Yakunlandi!</h2>
-          <p className="text-slate-500 mb-8">Variant {state.selectedVariant} yakuniga yetdi.</p>
+          <p className="text-slate-500 mb-8">
+            {state.selectedSubject ? subjects.find(s => s.id === state.selectedSubject)?.name : ''} - Variant {state.selectedVariant} yakuniga yetdi.
+          </p>
           
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div className="bg-slate-50 p-4 rounded-2xl">
@@ -239,13 +274,13 @@ const App: React.FC = () => {
 
           <div className="space-y-3">
             <button 
-              onClick={() => selectVariant(state.selectedVariant!)}
+              onClick={() => selectVariant(state.selectedSubject!, state.selectedVariant!)}
               className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg shadow-blue-100 flex items-center justify-center gap-2 hover:bg-blue-700 transition-all"
             >
               <RotateCcw className="w-5 h-5" /> Qayta urinish
             </button>
             <button 
-              onClick={(e) => copyShareLink(e, state.selectedVariant!)}
+              onClick={(e) => copyShareLink(e, state.selectedSubject!, state.selectedVariant!)}
               className="w-full py-4 bg-green-50 text-green-600 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-green-100 transition-all"
             >
               <Share2 className="w-5 h-5" /> Natijani yoki variantni ulashish

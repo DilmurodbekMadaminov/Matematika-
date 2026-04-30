@@ -3,7 +3,7 @@ import { Question } from "../types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
-const generateContentWithRetry = async (params: any, maxRetries = 3) => {
+const generateContentWithRetry = async (params: any, maxRetries = 6) => {
   let retries = 0;
   while (retries < maxRetries) {
     try {
@@ -14,7 +14,7 @@ const generateContentWithRetry = async (params: any, maxRetries = 3) => {
       if (retries >= maxRetries) {
         throw error;
       }
-      // Exponential backoff: 2s, 4s, 8s
+      // Backoff (2s, 4s, 8s, 16s, 32s)
       const delay = Math.pow(2, retries) * 1000;
       await new Promise(resolve => setTimeout(resolve, delay));
     }
@@ -25,22 +25,19 @@ const generateContentWithRetry = async (params: any, maxRetries = 3) => {
 export const generateQuestionsFromText = async (pages: string[]): Promise<Question[]> => {
   try {
     // Split text into overlapping chunks by PAGES to ensure no questions are missed at boundaries
-    const chunkSize = 5; // 5 pages per chunk
-    const overlap = 1;   // 1 page overlap
+    // Processing 1 page per chunk to perfectly map to "har bir betidagi testlar" as requested, ensuring zero overlap duplicates
+    const chunkSize = 1; 
+    const overlap = 0;    // No overlap minimizes duplication 
     const chunks: string[] = [];
     
-    for (let i = 0; i < pages.length; i += (chunkSize - overlap)) {
-      const chunkPages = pages.slice(i, i + chunkSize);
-      chunks.push(chunkPages.join('\n\n--- SAHIFA CHEGARASI ---\n\n'));
-      if (i + chunkSize >= pages.length) break;
+    for (let i = 0; i < pages.length; i += 1) {
+      chunks.push(pages[i]);
     }
 
-    const allQuestions: Question[] = [];
-    const seenQuestions = new Set<string>();
     const results: Question[][] = [];
     
-    // Process chunks in batches to avoid API rate limits and ensure 100% success
-    const batchSize = 5;
+    // Process chunks concurrently in massive batches to achieve extreme speed, matching Google AI Studio performance
+    const batchSize = 100;
     for (let i = 0; i < chunks.length; i += batchSize) {
       const batch = chunks.slice(i, i + batchSize);
       const batchPromises = batch.map(async (chunk, index) => {
@@ -48,10 +45,11 @@ export const generateQuestionsFromText = async (pages: string[]): Promise<Questi
           const response = await generateContentWithRetry({
             model: "gemini-3-flash-preview",
             contents: `
-              Sizga PDF faylning bir necha sahifasidan olingan matn beriladi.
-              Vazifangiz: Matndagi BARCHA matematika test savollarini 100% to'liq, hech birini qoldirmasdan, KETMA-KETLIKDA ajratib olish va JSON formatida qaytaring.
-              Agar savol sahifa oxirida uzilib qolgan bo'lsa va keyingi sahifada davom etsa, uni to'liq qilib birlashtiring.
-              Faqat to'liq savollarni oling. Savollar matnda qanday kelsa, xuddi shu ketma-ketlikda bo'lishi shart.
+              Sizga PDF fayldan olingan BIR DONA SAHIFA matni beriladi.
+              Ushbu sahifadagi BARCHA matematika test savollarini KETMA-KETLIKDA, hech birini tushirib qoldirmasdan ajratib oling va JSON formatida qaytaring.
+              Agar savol sahifada chala bo'lsa (keyingi betga o'tib ketgan), o'z holicha (qanchasi bo'lsa shunchasini) savol sifatida qabul qilavering.
+              DIQQAT: Matnda yo'q, o'ylab topilgan yoki qo'shimcha savollarni mutlaqo qo'shmang! Faqat shu sahifada bor savollarni oling.
+              Sahifadagi barcha real test savollarini 100% to'liq chiqaring, ularni birlashtirmang yoki qisqartirmang.
               
               Format:
               {
@@ -66,6 +64,7 @@ export const generateQuestionsFromText = async (pages: string[]): Promise<Questi
             `,
             config: {
               responseMimeType: "application/json",
+              maxOutputTokens: 8192,
               responseSchema: {
                 type: Type.ARRAY,
                 items: {
@@ -119,19 +118,16 @@ export const generateQuestionsFromText = async (pages: string[]): Promise<Questi
     }
     
     let currentId = 1;
+    const allQuestions: Question[] = [];
+    
     for (const chunkQuestions of results) {
       for (const q of chunkQuestions) {
-        // Create a unique key for de-duplication (normalize spaces)
-        const normalizedText = q.text.replace(/\s+/g, ' ').trim();
-        const uniqueKey = `${normalizedText}_${q.options[0]}`;
+        if (!q || !q.text || q.text.length < 5) continue; // Skip empty/garbage
         
-        if (!seenQuestions.has(uniqueKey)) {
-          seenQuestions.add(uniqueKey);
-          allQuestions.push({
-            ...q,
-            id: currentId++
-          });
-        }
+        allQuestions.push({
+          ...q,
+          id: currentId++
+        });
       }
     }
 

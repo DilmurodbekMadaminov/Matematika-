@@ -24,6 +24,10 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded }) => {
   const [extractedQuestions, setExtractedQuestions] = useState<Question[]>([]);
   const [variantSize, setVariantSize] = useState<number>(30);
   
+  const [hasPaid, setHasPaid] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
+  const [subjectName, setSubjectName] = useState('');
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -72,20 +76,26 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded }) => {
 
   const saveQuestions = async () => {
     if (extractedQuestions.length === 0) return;
+    if (!subjectName.trim()) {
+      addAssistantMessage('Iltimos, fan nomini kiriting.');
+      return;
+    }
     
     setIsLoading(true);
     try {
       const response = await fetch('/api/save-questions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questions: extractedQuestions, variantSize }),
+        body: JSON.stringify({ questions: extractedQuestions, variantSize, subjectName }),
       });
 
       if (!response.ok) throw new Error('Saqlashda xatolik');
 
-      addAssistantMessage(`Muvaffaqiyatli! ${extractedQuestions.length} ta test data.tsx (questions.ts) fayliga yozildi. Endi quiz qismida ularni ko'rishingiz mumkin.`);
+      addAssistantMessage(`Muvaffaqiyatli! ${extractedQuestions.length} ta test "${subjectName}" fani bo'yicha tizimga yozildi. Endi quiz qismida ularni ko'rishingiz mumkin.`);
       onQuestionsLoaded(extractedQuestions);
       setExtractedQuestions([]);
+      setHasPaid(false);
+      setSubjectName('');
       
       // Refresh page after a delay to load new data
       setTimeout(() => window.location.reload(), 3000);
@@ -94,6 +104,20 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded }) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const simulatePayment = () => {
+    if (!subjectName.trim()) {
+       addAssistantMessage('Fan nomini kiritishingiz shart!');
+       return;
+    }
+    setIsPaying(true);
+    // Simulate payment process
+    setTimeout(() => {
+      setIsPaying(false);
+      setHasPaid(true);
+      saveQuestions();
+    }, 2000);
   };
 
   const addUserMessage = (content: string) => {
@@ -147,7 +171,17 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded }) => {
             ))}
             {extractedQuestions.length > 0 && !isLoading && (
               <div className="flex flex-col gap-3 justify-start bg-white p-4 rounded-2xl border border-slate-200">
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-700">Fan nomi (qaysi fan bo'yichayuklayapsiz?):</label>
+                  <input 
+                    type="text" 
+                    value={subjectName}
+                    onChange={(e) => setSubjectName(e.target.value)}
+                    placeholder="Masalan: Ona tili"
+                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-2 mt-2">
                   <label className="text-sm font-medium text-slate-700">Har bir variantda nechta test bo'lsin?</label>
                   <input 
                     type="number" 
@@ -157,9 +191,20 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded }) => {
                     min="1"
                   />
                 </div>
-                <button onClick={saveQuestions} className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-green-700 transition-all w-full">
-                  <Save size={18} /> Testlarni saqlash (data.tsx)
-                </button>
+                {!hasPaid ? (
+                  <button 
+                    onClick={simulatePayment} 
+                    disabled={isPaying || !subjectName.trim()}
+                    className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-xl text-sm font-bold hover:bg-blue-700 transition-all w-full mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isPaying ? <Loader2 className="animate-spin w-5 h-5" /> : null}
+                    {isPaying ? "To'lov amalga oshirilmoqda..." : "To'lov qilish (10 000 so'm)"}
+                  </button>
+                ) : (
+                  <button onClick={saveQuestions} className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-green-700 transition-all w-full mt-2">
+                    <Save size={18} /> Testlarni saqlash
+                  </button>
+                )}
               </div>
             )}
             {isLoading && <Loader2 className="animate-spin text-blue-600 mx-auto" />}

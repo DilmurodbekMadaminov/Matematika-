@@ -17,7 +17,7 @@ async function startServer() {
 
   app.post('/api/save-questions', async (req, res) => {
     try {
-      const { questions, variantSize = 30 } = req.body;
+      const { questions, variantSize = 30, subjectName = 'Matematika' } = req.body;
       if (!Array.isArray(questions)) {
         return res.status(400).json({ error: 'Noto\'g\'ri ma\'lumot formati' });
       }
@@ -27,20 +27,49 @@ async function startServer() {
         fs.mkdirSync(dataDir);
       }
 
+      const jsonPath = path.join(dataDir, 'subjects.json');
+      let subjects = [];
+      if (fs.existsSync(jsonPath)) {
+        subjects = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      }
+
+      const newSubjectId = subjectName.toLowerCase().replace(/\s+/g, '-');
+      const existingIdx = subjects.findIndex(s => s.id === newSubjectId);
+      if (existingIdx !== -1) {
+        subjects[existingIdx].questions.push(...questions); // Append new questions
+        subjects[existingIdx].variantSize = variantSize; // Update variantSize
+      } else {
+        subjects.push({
+          id: newSubjectId,
+          name: subjectName,
+          variantSize,
+          questions
+        });
+      }
+
+      fs.writeFileSync(jsonPath, JSON.stringify(subjects, null, 2));
+
       const filePath = path.join(dataDir, 'questions.ts');
       
-      const fileContent = `
-import { Question } from '../types';
+      const fileContent = `import { Question, Subject } from '../types';
+import subjectsData from './subjects.json';
 
-export const questionsList: Question[] = ${JSON.stringify(questions, null, 2)};
-export const variantSize = ${variantSize};
+export const subjects: Subject[] = subjectsData as Subject[];
 
-export const totalVariants = Math.ceil(questionsList.length / variantSize);
+export const totalVariantsForSubject = (subjectId: string) => {
+  const subject = subjects.find(s => s.id === subjectId);
+  if (!subject) return 0;
+  const vSize = subject.variantSize || 30;
+  return Math.ceil(subject.questions.length / vSize);
+};
 
-export const getQuestionsByVariant = (variant: number): Question[] => {
-  const start = (variant - 1) * variantSize;
-  const end = start + variantSize;
-  return questionsList.slice(start, end);
+export const getQuestionsByVariant = (subjectId: string, variant: number): Question[] => {
+  const subject = subjects.find(s => s.id === subjectId);
+  if (!subject) return [];
+  const vSize = subject.variantSize || 30;
+  const start = (variant - 1) * vSize;
+  const end = start + vSize;
+  return subject.questions.slice(start, end);
 };
 `;
 
@@ -50,7 +79,6 @@ export const getQuestionsByVariant = (variant: number): Question[] => {
       res.status(500).json({ error: error.message });
     }
   });
-
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -59,7 +87,7 @@ export const getQuestionsByVariant = (variant: number): Question[] => {
     app.use(vite.middlewares);
   } else {
     app.use(express.static(path.join(__dirname, 'dist')));
-    app.get('*', (req, res) => {
+    app.get('*all', (req, res) => {
       res.sendFile(path.join(__dirname, 'dist', 'index.html'));
     });
   }
