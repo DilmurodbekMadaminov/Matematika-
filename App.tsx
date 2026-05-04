@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { getQuestionsByVariant, totalVariantsForSubject, subjects } from './data/questions';
 import { QuizState, Question } from './types';
-import { Chat } from './components/Chat';
+  // REMOVED Chat import:
+  // import { Chat } from './components/Chat';
 import { 
   CheckCircle2, 
   XCircle, 
@@ -235,7 +236,7 @@ const App: React.FC = () => {
             </div>
           )}
         </div>
-        <Chat onQuestionsLoaded={handleQuestionsLoaded} />
+        {/* Chat removed */}
         
         {toastMessage && (
           <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 animate-in fade-in slide-in-from-bottom-4">
@@ -418,7 +419,7 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <Chat onQuestionsLoaded={handleQuestionsLoaded} />
+      {/* Chat removed */}
 
       {/* Optional Manual Footer */}
       {isAnswered && (
