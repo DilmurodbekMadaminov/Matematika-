@@ -3,6 +3,7 @@ import { getQuestionsByVariant, totalVariantsForSubject, subjects } from './data
 import { QuizState, Question } from './types';
   // REMOVED Chat import:
   // import { Chat } from './components/Chat';
+import { MathText } from './components/MathText';
 import { 
   CheckCircle2, 
   XCircle, 
@@ -76,8 +77,8 @@ const App: React.FC = () => {
     return newArray;
   };
 
-  // State to hold shuffled order of indices [0, 1, 2, 3]
-  const [shuffledIndices, setShuffledIndices] = useState<number[]>([0, 1, 2, 3]);
+  // State to hold shuffled order of indices
+  const [shuffledIndices, setShuffledIndices] = useState<number[]>([]);
 
   const selectVariant = (subjectId: string, variant: number) => {
     const questions = getQuestionsByVariant(subjectId, variant);
@@ -100,7 +101,8 @@ const App: React.FC = () => {
   // Shuffle options whenever the question changes
   useEffect(() => {
     if (currentQuestion) {
-      setShuffledIndices(shuffleArray([0, 1, 2, 3]));
+      const indices = Array.from({ length: currentQuestion.options.length }, (_, i) => i);
+      setShuffledIndices(shuffleArray(indices));
     }
   }, [currentQuestion]);
 
@@ -353,7 +355,7 @@ const App: React.FC = () => {
               </div>
               <div className="w-full overflow-x-auto">
                 <p className="text-lg md:text-xl font-medium text-slate-800 leading-relaxed whitespace-pre-wrap font-mono">
-                  {currentQuestion.text}
+                  <MathText text={currentQuestion.text} />
                 </p>
               </div>
             </div>
@@ -364,7 +366,7 @@ const App: React.FC = () => {
                 const option = currentQuestion.options[originalIndex];
                 if (!option) return null;
 
-                const labels = ['A', 'B', 'C', 'D'];
+                const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
                 // We compare originalIndex (the actual answer ID) with user selection
                 const isSelected = selectedOption === originalIndex;
                 const isCorrect = originalIndex === currentQuestion.correctAnswer;
@@ -400,7 +402,7 @@ const App: React.FC = () => {
                       }`}>
                         {labels[displayIndex]}
                       </span>
-                      <span className="font-medium text-sm md:text-base font-mono whitespace-pre-wrap">{option}</span>
+                      <span className="font-medium text-sm md:text-base font-mono whitespace-pre-wrap"><MathText text={option} /></span>
                     </div>
                     {icon}
                   </button>
