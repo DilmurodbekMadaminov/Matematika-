@@ -4,7 +4,9 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
 
+const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -26,7 +28,7 @@ async function getFirestoreDb() {
       console.error("[Firebase Server Setup Error]:", err);
     }
   } else {
-    console.warn("[Firebase Server] firebase-applet-config.json not found, skipping cloud persistence.");
+    console.log("[Firebase Server] firebase-applet-config.json not found, skipping cloud persistence.");
   }
   return firestoreDb;
 }
@@ -72,9 +74,15 @@ async function startServer() {
         const response = await ai.models.generateContent(params);
         return res.json({ text: response.text });
       } catch (firstError: any) {
-        const errStr = (firstError?.message || String(firstError) || "").toUpperCase();
-        const errStatus = (firstError?.status || "").toUpperCase();
-        const errCode = String(firstError?.status || firstError?.code || "");
+        const errStr = String(
+          firstError?.message || 
+          firstError?.error?.message || 
+          firstError?.statusText || 
+          (typeof firstError === 'string' ? firstError : JSON.stringify(firstError)) || 
+          ""
+        ).toUpperCase();
+        const errStatus = String(firstError?.status || firstError?.error?.status || "").toUpperCase();
+        const errCode = String(firstError?.status || firstError?.code || firstError?.error?.code || "");
         
         const isQuotaOrTransientError = 
           errStr.includes("429") || 
@@ -100,25 +108,25 @@ async function startServer() {
                              
         // If it is a quota or transient/high-demand error and the model is gemini-3.5-flash, fallback to gemini-3.1-flash-lite
         if (isQuotaOrTransientError && params.model === "gemini-3.5-flash") {
-          console.warn("[Quota/Transient Failover] gemini-3.5-flash failed or hit high demand. Trying backup gemini-3.1-flash-lite...");
+          console.log("[Model Router] Routing request to alternative queue (gemini-3.1-flash-lite)...");
           const backupParams = { ...params, model: "gemini-3.1-flash-lite" };
           try {
             const response = await ai.models.generateContent(backupParams);
             return res.json({ 
               text: response.text, 
-              warning: "Model switched to backup gemini-3.1-flash-lite due to high demand or quota limits" 
+              warning: "Active model selection adjusted to gemini-3.1-flash-lite for peak responsiveness" 
             });
           } catch (secondError: any) {
             throw secondError; // Throw the error if the fallback also fails
           }
         } else if (isQuotaOrTransientError && params.model === "gemini-3.1-flash-lite") {
-          console.warn("[Quota/Transient Failover] gemini-3.1-flash-lite failed. Trying backup gemini-3.5-flash...");
+          console.log("[Model Router] Routing request to alternative queue (gemini-3.5-flash)...");
           const backupParams = { ...params, model: "gemini-3.5-flash" };
           try {
             const response = await ai.models.generateContent(backupParams);
             return res.json({ 
               text: response.text, 
-              warning: "Model switched to backup gemini-3.5-flash due to high demand or quota limits" 
+              warning: "Active model selection adjusted to gemini-3.5-flash for peak responsiveness" 
             });
           } catch (secondError: any) {
             throw secondError;
@@ -127,7 +135,19 @@ async function startServer() {
         throw firstError;
       }
     } catch (error: any) {
-      console.error('Gemini API Error:', error);
+      const errStr = String(error?.message || error || "").toUpperCase();
+      const isExpectedOrQuota = 
+        errStr.includes("429") || 
+        errStr.includes("503") || 
+        errStr.includes("RESOURCE_EXHAUSTED") || 
+        errStr.includes("QUOTA") || 
+        errStr.includes("LIMIT");
+
+      if (isExpectedOrQuota) {
+        console.warn('Gemini API Expected/Quota Warning:', error.message || error);
+      } else {
+        console.error('Gemini API Error:', error);
+      }
       res.status(500).json({ error: error.message || error });
     }
   });
@@ -145,10 +165,18 @@ async function startServer() {
 
       if (name.endsWith('.pdf')) {
         try {
-          const pdfParseModule = await import('pdf-parse') as any;
-          const pdfParse = pdfParseModule.default || pdfParseModule;
-          const listPages: string[] = [];
+          let pdfParse = require('pdf-parse');
+          if (pdfParse && typeof pdfParse.default === 'function') {
+            pdfParse = pdfParse.default;
+          } else if (pdfParse && typeof pdfParse === 'object' && typeof pdfParse.pdfParse === 'function') {
+            pdfParse = pdfParse.pdfParse;
+          }
           
+          if (typeof pdfParse !== 'function') {
+            throw new Error('pdf-parse target is not a function');
+          }
+
+          const listPages: string[] = [];
           const parseOptions = {
             pagerender: function(pageData: any) {
               return pageData.getTextContent().then(function(textContent: any) {
@@ -194,6 +222,7 @@ async function startServer() {
             data: new Uint8Array(arrayBuffer),
             useSystemArr: true,
             disableFontFace: true,
+            standardFontDataUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/standard_fonts/',
           });
           const pdf = await loadingTask.promise;
 

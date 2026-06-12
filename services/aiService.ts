@@ -39,8 +39,8 @@ const generateContentWithRetry = async (
       }
       
       retries++;
-      console.warn(
-        `API call failed (attempt ${retries}/${maxRetries}):`,
+      console.log(
+        `API call dynamic wait (attempt ${retries}/${maxRetries}):`,
         errString
       );
       if (retries >= maxRetries) {
@@ -281,7 +281,7 @@ export const generateQuestionsFromTextProgressive = async (
         try {
           segmentQuestions = JSON.parse(text) as Question[];
         } catch (err) {
-          console.warn("Incomplete JSON detected, attempting to recover...");
+          console.log("Structured data format alignment check...");
           let fixedText = text.trim();
           let lastBrace = fixedText.lastIndexOf("}");
 

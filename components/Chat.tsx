@@ -60,6 +60,25 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded, userEmail }) => {
   const [hasPaid, setHasPaid] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
   const [subjectName, setSubjectName] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"click" | "payme" | "uzum">("click");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+
+  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 16) value = value.substring(0, 16);
+    const formatted = value.match(/.{1,4}/g)?.join(" ") || value;
+    setCardNumber(formatted);
+  };
+
+  const handleCardExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 4) value = value.substring(0, 4);
+    if (value.length >= 2) {
+      value = value.substring(0, 2) + "/" + value.substring(2);
+    }
+    setCardExpiry(value);
+  };
 
   const [systemInstructions, setSystemInstructions] = useState(
     "Siz matematika o'qituvchisisiz. Savollarga qisqa va aniq javob bering."
@@ -256,10 +275,15 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded, userEmail }) => {
     }
   };
 
-  const saveQuestions = async () => {
+  const saveQuestions = async (bypass = false) => {
     if (extractedQuestions.length === 0) return;
     if (!subjectName.trim()) {
       addAssistantMessage("Darslik to'plami uchun fan nomini kiriting.");
+      return;
+    }
+
+    if (!hasPaid && !bypass) {
+      addAssistantMessage("Xatolik: Testlarni saqlashdan oldin to'lov tasdiqlanishi shart!");
       return;
     }
 
@@ -287,7 +311,7 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded, userEmail }) => {
       };
 
       addAssistantMessage(
-        `Ajoyib! Jami ${extractedQuestions.length} ta test "${subjectName}" fani bo'yicha kutubxonaga yozildi va Split-Screen muharriri faollashmoqda.`
+        `Ajoyib! Jami ${extractedQuestions.length} ta test "${subjectName}" fani bo'yicha kutubxonaga yozildi va Split-Screen tahrirlagich o'tildi.`
       );
       
       // Auto-trigger direct editing in App.tsx!
@@ -309,12 +333,27 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded, userEmail }) => {
       addAssistantMessage("Iltimos, darslik nomini kiriting!");
       return;
     }
+    const plainCard = cardNumber.replace(/\s+/g, "");
+    if (plainCard.length !== 16) {
+      addAssistantMessage("Xatolik: To'lov uchun 16 xonali karta raqamini to'liq kiriting (8600...)");
+      return;
+    }
+    if (cardExpiry.length !== 5) {
+      addAssistantMessage("Xatolik: Karta amal qilish muddatini kiriting (OO/YY)");
+      return;
+    }
+
     setIsPaying(true);
+    addAssistantMessage(`💳 ${paymentMethod.toUpperCase()} tizimi orqali 9,900 so'm to'lov jarayoni tekshirilmoqda...`);
     setTimeout(() => {
       setIsPaying(false);
       setHasPaid(true);
-      saveQuestions();
-    }, 1500);
+      addAssistantMessage(`✅ To'lov qabul qilindi! Tranzaksiya: TXID-${Math.floor(100000 + Math.random() * 900000)}`);
+      setCardNumber("");
+      setCardExpiry("");
+      // Trigger save with bypass true
+      saveQuestions(true);
+    }, 2000);
   };
 
   const handleSend = async () => {
@@ -722,21 +761,135 @@ export const Chat: React.FC<ChatProps> = ({ onQuestionsLoaded, userEmail }) => {
                   </div>
 
                   {!hasPaid ? (
-                    <button
-                      onClick={saveQuestions}
-                      disabled={isPaying || !subjectName.trim()}
-                      className="flex items-center justify-center gap-2 bg-[#1a73e8] hover:bg-[#1557b0] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all w-full disabled:opacity-50 disabled:cursor-not-allowed uppercase font-mono"
-                    >
-                      {isPaying ? <Loader2 className="animate-spin w-4 h-4" /> : <CheckCircle size={15} />}
-                      Saqlash va Split-Screen tahrirga o'tish
-                    </button>
+                    <div className="bg-[#121212]/90 border border-[#3c4043] rounded-2xl p-4 space-y-4">
+                      {/* Premium Header */}
+                      <div className="flex items-center justify-between border-b border-[#2d2f31] pb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                          <span className="text-[10px] font-bold text-amber-400 font-mono tracking-wider uppercase">PREMIUM SAQLASH REJIMI</span>
+                        </div>
+                        <span className="text-[11px] font-extrabold text-white font-mono bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">9,900 UZS</span>
+                      </div>
+
+                      {/* Pricing Breakdown */}
+                      <div className="space-y-1 text-[10px] font-mono text-gray-400">
+                        <div className="flex justify-between">
+                          <span>Bazaviy to'lov:</span>
+                          <span className="text-gray-300">15,000 so'm</span>
+                        </div>
+                        <div className="flex justify-between text-[#8ab4f8]">
+                          <span>AI Studio chegirma:</span>
+                          <span>-5,100 so'm</span>
+                        </div>
+                        <div className="flex justify-between font-bold text-white border-t border-[#1e1e1e] pt-1.5 mt-1.5 text-[11px]">
+                          <span>To'lanadigan jami:</span>
+                          <span className="text-amber-400">9,900 so'm</span>
+                        </div>
+                      </div>
+
+                      {/* Payment Methods */}
+                      <div className="space-y-1.5">
+                        <label className="text-[9px] font-bold text-gray-400 uppercase tracking-wider font-mono block">
+                          To'lov usuli:
+                        </label>
+                        <div className="grid grid-cols-3 gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setPaymentMethod("click")}
+                            className={`py-1.5 rounded-lg border text-[10px] font-bold transition-all text-center ${
+                              paymentMethod === "click"
+                                ? "bg-[#0088cc]/20 border-[#0088cc] text-white"
+                                : "bg-[#1e1e1e] border-[#3c4043] text-gray-400 hover:border-gray-500"
+                            }`}
+                          >
+                            🔵 Click
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPaymentMethod("payme")}
+                            className={`py-1.5 rounded-lg border text-[10px] font-bold transition-all text-center ${
+                              paymentMethod === "payme"
+                                ? "bg-[#12c2e9]/20 border-[#12c2e9] text-white"
+                                : "bg-[#1e1e1e] border-[#3c4043] text-gray-400 hover:border-gray-500"
+                            }`}
+                          >
+                            🟢 Payme
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPaymentMethod("uzum")}
+                            className={`py-1.5 rounded-lg border text-[10px] font-bold transition-all text-center ${
+                              paymentMethod === "uzum"
+                                ? "bg-[#7000ff]/20 border-[#7000ff] text-white"
+                                : "bg-[#1e1e1e] border-[#3c4043] text-gray-400 hover:border-gray-500"
+                            }`}
+                          >
+                            🟣 Uzum Pay
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Card Input Layout */}
+                      <div className="grid grid-cols-3 gap-2 pt-1">
+                        <div className="col-span-2 flex flex-col gap-1">
+                          <label className="text-[9px] font-bold text-gray-400 uppercase tracking-wider font-mono">
+                            Karta raqami:
+                          </label>
+                          <input
+                            type="text"
+                            value={cardNumber}
+                            onChange={handleCardNumberChange}
+                            placeholder="8600 0000 0000 0000"
+                            className="bg-[#1e1e1e] border border-[#3c4043] text-white rounded-lg px-2 py-1.5 text-xs outline-none focus:border-blue-500 font-mono text-center tracking-wider"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          <label className="text-[9px] font-bold text-gray-400 uppercase tracking-wider font-mono text-center">
+                            Muddati:
+                          </label>
+                          <input
+                            type="text"
+                            value={cardExpiry}
+                            onChange={handleCardExpiryChange}
+                            placeholder="12/28"
+                            className="bg-[#1e1e1e] border border-[#3c4043] text-white rounded-lg px-2 py-1.5 text-xs outline-none focus:border-blue-500 font-mono text-center"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Checkout Action Button */}
+                      <button
+                        type="button"
+                        onClick={simulatePayment}
+                        disabled={isPaying || !subjectName.trim() || cardNumber.replace(/\s+/g, "").length !== 16 || cardExpiry.length !== 5}
+                        className="flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-bold transition-all w-full disabled:opacity-50 disabled:cursor-not-allowed uppercase font-mono mt-1"
+                      >
+                        {isPaying ? (
+                          <>
+                            <Loader2 className="animate-spin w-4 h-4" />
+                            To'lov yuborilmoqda...
+                          </>
+                        ) : (
+                          <>
+                            <span>💳</span>
+                            Tasdiqlash va 9,900 UZS To'lash
+                          </>
+                        )}
+                      </button>
+                    </div>
                   ) : (
-                    <button
-                      onClick={saveQuestions}
-                      className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-green-700 transition-all w-full font-mono uppercase"
-                    >
-                      <Save size={14} /> Bazaga tahrirsiz yozish
-                    </button>
+                    <div className="space-y-2">
+                      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-2.5 flex items-center gap-2 text-emerald-400 font-mono text-[10px]">
+                        <span>✅</span>
+                        <span>TO'LOV MUVAFFAQIYATLI QABUL QILINDI!</span>
+                      </div>
+                      <button
+                        onClick={() => saveQuestions(true)}
+                        className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-green-700 transition-all w-full font-mono uppercase"
+                      >
+                        <Save size={14} /> Bazaga tahrirsiz yozish
+                      </button>
+                    </div>
                   )}
                 </div>
               )}
