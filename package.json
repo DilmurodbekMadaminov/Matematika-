@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "prepare-worker": "node scripts/prepare-worker.js",
+    "dev": "npm run prepare-worker && tsx server.ts",
+    "start": "npm run prepare-worker && tsx server.ts",
+    "build": "npm run prepare-worker && vite build",
     "lint": "tsc --noEmit",
     "preview": "vite preview"
   },
@@ -13,7 +15,10 @@
     "@google/genai": "^1.44.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "firebase": "^12.14.0",
     "lucide-react": "^0.562.0",
+    "mammoth": "^1.12.0",
+    "pdf-parse": "^2.4.5",
     "pdfjs-dist": "^4.10.38",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",

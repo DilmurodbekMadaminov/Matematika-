@@ -1,5 +1,6 @@
 {
   "name": "Matematika",
   "description": "Amaliy matematika va matematik fizika fanidan yakuniy nazorat test savollari.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

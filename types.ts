@@ -11,6 +11,7 @@ export interface Subject {
   name: string;
   variantSize?: number;
   questions: Question[];
+  creator?: string;
 }
 
 export interface ChatMessage {

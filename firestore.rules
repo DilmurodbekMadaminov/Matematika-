@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // default global safety Net deny-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Subjects Collection Rules
+    match /subjects/{subjectId} {
+      allow read: if true;
+      allow write: if true; // Enable creation/sync of fannomi tests from different machines
+    }
+
+    // Sub-collection Questions Rules
+    match /subjects/{subjectId}/questions/{questionId} {
+      allow read: if true;
+      allow write: if true; // Permit batched segment uploads directly
+    }
+  }
+}

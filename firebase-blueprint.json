@@ -1,0 +1,66 @@
+{
+  "entities": {
+    "Subject": {
+      "title": "Subject",
+      "description": "An exam subject containing meta information.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Subject unique ID (slugified fannomi)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the fan"
+        },
+        "variantSize": {
+          "type": "integer",
+          "description": "Number of questions per variant"
+        },
+        "creator": {
+          "type": "string",
+          "description": "User email who loaded this subject"
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "An individual test question.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Question sequential index number"
+        },
+        "text": {
+          "type": "string",
+          "description": "The question title"
+        },
+        "options": {
+          "type": "array",
+          "description": "List of options for answers"
+        },
+        "correctAnswer": {
+          "type": "integer",
+          "description": "Zero-indexed correct answer key (0 pentru A, 1 pentru B, etc)"
+        },
+        "variant": {
+          "type": "integer",
+          "description": "Computed variant group partition number"
+        }
+      },
+      "required": ["id", "text", "options", "correctAnswer"]
+    }
+  },
+  "firestore": {
+    "/subjects/{subjectId}": {
+      "schema": "Subject",
+      "description": "Collection of overall subjects/exams"
+    },
+    "/subjects/{subjectId}/questions/{questionId}": {
+      "schema": "Question",
+      "description": "Highly scalable sub-collection of questions under a specific subject"
+    }
+  }
+}
